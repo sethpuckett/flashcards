@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+content: ".";
+display: block;
+clear: both;
+visibility: hidden;
+line-height: 0;
+height: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+html, body {
+  height: 100%;
+  font-size: 18px;
+  color: #505050;
+  background-color: #FFCCC5;
+}
+
+header {
+  text-align: center;
+}
+
+#wrapper {
+  min-height: 100%;
+}
+
+#content {
+  width: 1024px;
+  margin: 10px auto 0px;
+  overflow: auto;
+  padding-bottom: 65px;
+  text-align: center;
+}
+
+#card-table {
+  width: 100%;
+  padding-top: 20px;
+}
+
+#card-table .card-column {
+  width: 33%;
+  display: inline-block;
+}
+
+#card-table .header .card-column {
+  padding: 5px;
+  border-bottom: 3px solid gray;
+
+}

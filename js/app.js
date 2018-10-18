@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 function loadHeaders() {
-  $("#header-title").text(CARDS['title']);
+  $('#header-title').text(CARDS['title']);
   $('#card-header-left').text(CARDS['left-category']);;
   $('#card-header-right').text(CARDS['right-category']);;
 }
@@ -17,8 +17,15 @@ function loadCards() {
     right = card['right'];
     notes = card['notes'];
 
-    var tr = `<tr><td class='left'>${left}</td><td class='right'>${right}</td><td class='notes'>${notes}</td></tr>`;
-    $('#card-table > tbody:last-child').append(tr);
+    var row = `
+      <div class='table-row'>
+        <div class='card-column left'>${left}</div>
+        <div class='card-column right'>${right}</div>
+        <div class='card-column notes'>${notes}</div>
+      </div>
+    `;
+
+    $('#card-table > .body:last-child').append(row);
   });
 }
 
