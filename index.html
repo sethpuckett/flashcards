@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
 <body>
+  <header>
+    <h1 id="header-title" />
+  </header>
   <div id="control-container">
     <button id="btn-hide-all">Hide All</button>
     <button id="btn-show-all">Show All</button>
@@ -16,11 +19,14 @@
   </div>
   <div id="flashcard-container">
     <table id='card-table'>
-      <th>
-        <td id="card-header-left" />
-        <td id="card-header-right" />
-        <td id="card-header-notes">Notes</td>
-      </th>
+      <thead>
+        <tr>
+          <td id="card-header-left" />
+          <td id="card-header-right" />
+          <td id="card-header-notes">Notes</td>
+        </tr>
+      </thead>
+      <tbody />
     </table>
   </div>
   <script
@@ -28,7 +34,7 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="plugins/tabletop-1.4.2/src/tabletop.js"></script>
+  <script src="js/words.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
