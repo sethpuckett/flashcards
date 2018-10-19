@@ -31,7 +31,7 @@ function loadCards() {
       <div class='table-row'>
         <div class='card-column card left'><p>${left}</p></div>
         <div class='card-column card right'><p>${right}</p></div>
-        <div class='card-column card notes'><p>${notes}</p></div>
+        <div class='card-column card notes'><p>${notes || ''}</p></div>
         <button class='btn-ignore'>x</button>
       </div>
     `;
