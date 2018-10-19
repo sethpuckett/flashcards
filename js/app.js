@@ -19,9 +19,9 @@ function loadCards() {
 
     var row = `
       <div class='table-row'>
-        <div class='card-column left'>${left}</div>
-        <div class='card-column right'>${right}</div>
-        <div class='card-column notes'>${notes}</div>
+        <div class='card-column card left'><p>${left}</p></div>
+        <div class='card-column card right'><p>${right}</p></div>
+        <div class='card-column card notes'><p>${notes}</p></div>
       </div>
     `;
 
