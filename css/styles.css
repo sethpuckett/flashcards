@@ -46,7 +46,10 @@ header {
 #card-table .header .card-column {
   padding: 5px;
   border-bottom: 3px solid gray;
+}
 
+#card-table .body {
+  margin-bottom: 150px;
 }
 
 .card-column {
@@ -65,4 +68,14 @@ header {
 
 .card p {
   margin: auto;
+}
+
+.card.left, .card.right {
+  font-size: 32px;
+}
+
+.divider-text {
+  text-align: center;
+  font-size: 48px;
+  border-bottom: 3px solid gray;
 }

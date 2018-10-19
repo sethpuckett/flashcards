@@ -7,6 +7,8 @@ $(document).ready(function () {
   $("#btn-hide-left").on('click', hideLeft);
   $("#btn-hide-right").on('click', hideRight);
   $(".card").on('click', toggleCard);
+  $("#card-table").on('click', ".btn-ignore", ignoreCard);
+  $("#card-table").on('click', ".btn-unignore", unignoreCard);
 });
 
 function loadHeaders() {
@@ -30,10 +32,11 @@ function loadCards() {
         <div class='card-column card left'><p>${left}</p></div>
         <div class='card-column card right'><p>${right}</p></div>
         <div class='card-column card notes'><p>${notes}</p></div>
+        <button class='btn-ignore'>x</button>
       </div>
     `;
 
-    $('#card-table > .body:last-child').append(row);
+    $('#card-table > .body.active').append(row);
   });
 }
 
@@ -55,4 +58,18 @@ function hideRight() {
 
 function toggleCard() {
   $(this).find('p').fadeToggle();
+}
+
+function ignoreCard() {
+  $(this).text('^');
+  $(this).removeClass('btn-ignore');
+  $(this).addClass('btn-unignore');
+  $(this).parent().detach().appendTo('#card-table > .body.ignored');
+}
+
+function unignoreCard() {
+  $(this).text('x');
+  $(this).removeClass('btn-unignore');
+  $(this).addClass('btn-ignore');
+  $(this).parent().detach().appendTo('#card-table > .body.active');
 }
