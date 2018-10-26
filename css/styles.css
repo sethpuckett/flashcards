@@ -79,3 +79,7 @@ header {
   font-size: 48px;
   border-bottom: 3px solid gray;
 }
+
+button {
+  margin: 5px;
+}

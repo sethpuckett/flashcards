@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+  var TOPIC_SPREADSHEET_KEY = '159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU';
+
+  Tabletop.init({
+    key: TOPIC_SPREADSHEET_KEY,
+    callback: loadAllDecks,
+    simpleSheet: true
+  });
+
   loadHeaders();
   loadCards();
 
@@ -9,7 +18,37 @@ $(document).ready(function () {
   $(".card").on('click', toggleCard);
   $("#card-table").on('click', ".btn-ignore", ignoreCard);
   $("#card-table").on('click', ".btn-unignore", unignoreCard);
+
+  $('#btn-load-deck').on('click', deckSelected);
 });
+
+function loadAllDecks(data) {
+  data.forEach(function(deck) {
+    name = deck.name;
+    key = deck.key;
+    var option = `<option value='${key}'>${name}</option>`;
+    $('#sel-deck').append(option);
+  });
+}
+
+function deckSelected() {
+  key = $('#sel-deck').find(':selected').val();
+  Tabletop.init({
+    key: key,
+    callback: loadDeck,
+    simpleSheet: true
+  });
+}
+
+function loadDeck(data) {
+  var left = Object.keys(data[0])[0];
+  var right = Object.keys(data[0])[1];
+  $('#header-title').text($('#sel-deck').find(':selected').text());
+  $('#card-header-left').text(left);
+  $('#card-header-right').text(right);
+  $('#btn-hide-left').text(`Hide ${left}`);
+  $('#btn-hide-right').text(`Hide ${right}`);
+}
 
 function loadHeaders() {
   $('#header-title').text(CARDS['title']);
