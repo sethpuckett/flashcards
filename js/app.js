@@ -8,14 +8,11 @@ $(document).ready(function () {
     simpleSheet: true
   });
 
-  loadHeaders();
-  loadCards();
-
   $("#btn-hide-all").on('click', hideAll);
   $("#btn-show-all").on('click', showAll);
   $("#btn-hide-left").on('click', hideLeft);
   $("#btn-hide-right").on('click', hideRight);
-  $(".card").on('click', toggleCard);
+  $("#card-table").on('click', '.card', toggleCard);
   $("#card-table").on('click', ".btn-ignore", ignoreCard);
   $("#card-table").on('click', ".btn-unignore", unignoreCard);
 
@@ -41,6 +38,9 @@ function deckSelected() {
 }
 
 function loadDeck(data) {
+  $('#card-table > .body.active').empty();
+  $('#card-table > .body.ignored').empty();
+
   var left = Object.keys(data[0])[0];
   var right = Object.keys(data[0])[1];
   $('#header-title').text($('#sel-deck').find(':selected').text());
@@ -48,35 +48,25 @@ function loadDeck(data) {
   $('#card-header-right').text(right);
   $('#btn-hide-left').text(`Hide ${left}`);
   $('#btn-hide-right').text(`Hide ${right}`);
-}
 
-function loadHeaders() {
-  $('#header-title').text(CARDS['title']);
-  $('#card-header-left').text(CARDS['left-category']);
-  $('#card-header-right').text(CARDS['right-category']);
-  $('#btn-hide-left').text(`Hide ${CARDS['left-category']}`);
-  $('#btn-hide-right').text(`Hide ${CARDS['right-category']}`);
-}
-
-function loadCards() {
-  cards = CARDS['cards'];
-
-  cards.forEach(card => {
-    left = card['left'];
-    right = card['right'];
-    notes = card['notes'];
+  data.forEach(card => {
+    leftEntry = card[left];
+    rightEntry = card[right];
+    notesEntry = card['notes'];
 
     var row = `
       <div class='table-row'>
-        <div class='card-column card left'><p>${left}</p></div>
-        <div class='card-column card right'><p>${right}</p></div>
-        <div class='card-column card notes'><p>${notes || ''}</p></div>
+        <div class='card-column card left'><p>${leftEntry}</p></div>
+        <div class='card-column card right'><p>${rightEntry}</p></div>
+        <div class='card-column card notes'><p>${notesEntry || ''}</p></div>
         <button class='btn-ignore'>x</button>
       </div>
     `;
 
     $('#card-table > .body.active').append(row);
   });
+
+  $('.card.right p').hide();
 }
 
 function hideAll() {
@@ -88,10 +78,12 @@ function showAll() {
 }
 
 function hideLeft() {
+  $('.card.right p').fadeIn();
   $('.card.left p').fadeOut();
 }
 
 function hideRight() {
+  $('.card.left p').fadeIn();
   $('.card.right p').fadeOut();
 }
 
