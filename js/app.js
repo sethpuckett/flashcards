@@ -17,6 +17,7 @@ $(document).ready(function () {
   $("#card-table").on('click', ".btn-unignore", unignoreCard);
 
   $('#btn-load-deck').on('click', deckSelected);
+  $('#btn-shuffle').on('click', shuffleDeck);
 });
 
 function loadAllDecks(data) {
@@ -103,4 +104,26 @@ function unignoreCard() {
   $(this).removeClass('btn-unignore');
   $(this).addClass('btn-ignore');
   $(this).parent().detach().appendTo('#card-table > .body.active');
+}
+
+function shuffleDeck() {
+  cards = $('#card-table > .body.active').children();
+  shuffle(cards);
+  $('#card-table > .body.active').empty();
+  $('#card-table > .body.active').append(cards);
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
