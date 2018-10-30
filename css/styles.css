@@ -64,6 +64,7 @@ header {
   vertical-align: middle;
   margin: 10px;
   display: inline-flex;
+  padding: 10px;
 }
 
 .card p {
@@ -82,4 +83,17 @@ header {
 
 button {
   margin: 5px;
+}
+
+#deck-notes-container {
+  display: none;
+}
+
+
+#deck-notes {
+  border: 1px solid gray;
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px;
+  line-height: 1.2;
 }

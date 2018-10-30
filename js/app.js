@@ -1,3 +1,5 @@
+var decks = [];
+
 $(document).ready(function () {
 
   var TOPIC_SPREADSHEET_KEY = '159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU';
@@ -21,9 +23,15 @@ $(document).ready(function () {
 });
 
 function loadAllDecks(data) {
+  decks = [];
+
   data.forEach(function(deck) {
-    name = deck.name;
-    key = deck.key;
+    var name = deck.name;
+    var key = deck.key;
+    var notes = deck.notes;
+
+    decks.push({'name': name, 'key': key, 'notes': notes });
+
     var option = `<option value='${key}'>${name}</option>`;
     $('#sel-deck').append(option);
   });
@@ -38,22 +46,35 @@ function deckSelected() {
   });
 }
 
-function loadDeck(data) {
+function loadDeck(data, tabletop) {
   $('#card-table > .body.active').empty();
   $('#card-table > .body.ignored').empty();
 
   var left = Object.keys(data[0])[0];
   var right = Object.keys(data[0])[1];
+  deck = decks.find(function(el) { return el.key === tabletop.key; });
+
   $('#header-title').text($('#sel-deck').find(':selected').text());
   $('#card-header-left').text(left);
   $('#card-header-right').text(right);
   $('#btn-hide-left').text(`Hide ${left}`);
   $('#btn-hide-right').text(`Hide ${right}`);
 
+  if (deck.notes != null && deck.notes != '') {
+    $('#deck-notes').empty();
+    $('#deck-notes').append(`<p>${deck.notes}</p>`);
+    $('#deck-notes-container').show();
+  } else {
+    $('#deck-notes-container').hide();
+  }
+
   data.forEach(card => {
     leftEntry = card[left];
     rightEntry = card[right];
     notesEntry = card['notes'];
+    if (notesEntry == null) {
+      notesEntry = card['Notes'];
+    }
 
     var row = `
       <div class='table-row'>
