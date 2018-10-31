@@ -58,7 +58,7 @@ header {
 }
 
 .card {
-  border: 1px solid gray;
+  border: 2px solid gray;
   border-radius: 10px;
   height: 100px;
   vertical-align: middle;
@@ -73,6 +73,10 @@ header {
 
 .card.left, .card.right {
   font-size: 32px;
+}
+
+.card.notes.no-content {
+  border: 1px solid gray;
 }
 
 .divider-text {
@@ -91,7 +95,7 @@ button {
 
 
 #deck-notes {
-  border: 1px solid gray;
+  border: 2px solid gray;
   border-radius: 10px;
   text-align: left;
   padding: 10px;

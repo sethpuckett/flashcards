@@ -76,11 +76,15 @@ function loadDeck(data, tabletop) {
       notesEntry = card['Notes'];
     }
 
+    notesDiv = notesEntry != null && notesEntry != '' ?
+      `<div class='card-column card notes'><p>${notesEntry}</p></div>` :
+      `<div class='card-column card notes no-content'><p></p></div>`;
+
     var row = `
       <div class='table-row'>
         <div class='card-column card left'><p>${leftEntry}</p></div>
         <div class='card-column card right'><p>${rightEntry}</p></div>
-        <div class='card-column card notes'><p>${notesEntry || ''}</p></div>
+        ${notesDiv}
         <button class='btn-ignore'>x</button>
       </div>
     `;
@@ -88,7 +92,8 @@ function loadDeck(data, tabletop) {
     $('#card-table > .body.active').append(row);
   });
 
-  $('.card.right p').hide();
+  hideRight();
+  hideNotes();
 }
 
 function hideAll() {
@@ -107,6 +112,10 @@ function hideLeft() {
 function hideRight() {
   $('.card.left p').fadeIn();
   $('.card.right p').fadeOut();
+}
+
+function hideNotes() {
+  $('.card.notes p').fadeOut();
 }
 
 function toggleCard() {
