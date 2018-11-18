@@ -75,6 +75,15 @@ header {
   font-size: 32px;
 }
 
+.card.notes {
+  text-align: left;
+  font-size: 13px;
+}
+
+.card.notes p {
+  margin: 5px;
+}
+
 .card.notes.no-content {
   border: 1px solid gray;
 }
