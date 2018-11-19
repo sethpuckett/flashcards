@@ -143,3 +143,7 @@ button {
 #user-guide #keys {
   display: none;
 }
+
+#flashcard-container {
+  display: none;
+}

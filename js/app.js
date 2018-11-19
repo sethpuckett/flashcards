@@ -222,6 +222,7 @@ function loadDeck(data, tabletop) {
   selectFirstRow();
   showKeyGuide();
   setInstructions('Click cards, use buttons, or use keyboard shortcuts to toggle/shuffle/etc');
+  showFlaschardContainer();
 }
 
 function hideAll() {
@@ -299,4 +300,8 @@ function setInstructions(text) {
 
 function showKeyGuide() {
   $('#user-guide #keys').show();
+}
+
+function showFlaschardContainer() {
+  $('#flashcard-container').show();
 }
