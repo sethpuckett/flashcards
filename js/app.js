@@ -15,8 +15,8 @@ $(document).ready(function () {
   $("#btn-hide-left").on('click', hideLeft);
   $("#btn-hide-right").on('click', hideRight);
   $("#card-table").on('click', '.card', toggleCard);
-  $("#card-table").on('click', ".btn-ignore", ignoreCard);
-  $("#card-table").on('click', ".btn-unignore", unignoreCard);
+  $("#card-table").on('click', ".btn-remove", removeCard);
+  $("#card-table").on('click', ".btn-unremove", unremoveCard);
 
   $('#btn-load-deck').on('click', deckSelected);
   $('#btn-shuffle').on('click', shuffleAndMoveToTop);
@@ -36,10 +36,10 @@ function handleKey(e) {
       toggleSelectedNotes();
       break;
     case 'f':
-      ignoreAndSelectNext();
+      removeAndSelectNext();
       break;
     case 'g':
-      undoLastIgnore();
+      undoLastRemove();
       break;
     case 'e':
       selectPreviousRow();
@@ -74,19 +74,19 @@ function toggleSelectedNotes() {
   toggleCard.call($(row).find('.notes')[0]);
 }
 
-function ignoreAndSelectNext() {
+function removeAndSelectNext() {
   currentRow = getSelectedRow();
   selectNextRow();
 
   if (currentRow != null) {
-    ignoreCard.call($(currentRow).find('.btn-ignore')[0]);
+    removeCard.call($(currentRow).find('.btn-remove')[0]);
   }
 }
 
-function undoLastIgnore() {
-  row = $('#card-table > .body.ignored > .table-row:last-child')[0];
+function undoLastRemove() {
+  row = $('#card-table > .body.removed > .table-row:last-child')[0];
   if (row == null) return;
-  unignoreCard.call($(row).find('.btn-unignore')[0], getSelectedRow());
+  unremoveCard.call($(row).find('.btn-unremove')[0], null, getSelectedRow());
   selectPreviousRow();
 }
 
@@ -173,7 +173,7 @@ function deckSelected() {
 
 function loadDeck(data, tabletop) {
   $('#card-table > .body.active').empty();
-  $('#card-table > .body.ignored').empty();
+  $('#card-table > .body.removed').empty();
 
   var left = Object.keys(data[0])[0];
   var right = Object.keys(data[0])[1];
@@ -210,7 +210,7 @@ function loadDeck(data, tabletop) {
         <div class='card-column card left'><p>${leftEntry}</p></div>
         <div class='card-column card right'><p>${rightEntry}</p></div>
         ${notesDiv}
-        <button class='btn-ignore'>x</button>
+        <button class='btn-remove'>x</button>
       </div>
     `;
 
@@ -251,17 +251,17 @@ function toggleCard() {
   selectRow.call(this);
 }
 
-function ignoreCard() {
+function removeCard() {
   $(this).text('^');
-  $(this).removeClass('btn-ignore');
-  $(this).addClass('btn-unignore');
-  $(this).parent().detach().appendTo('#card-table > .body.ignored');
+  $(this).removeClass('btn-remove');
+  $(this).addClass('btn-unremove');
+  $(this).parent().detach().appendTo('#card-table > .body.removed');
 }
 
-function unignoreCard(afterSibling) {
+function unremoveCard(_event, afterSibling) {
   $(this).text('x');
-  $(this).removeClass('btn-unignore');
-  $(this).addClass('btn-ignore');
+  $(this).removeClass('btn-unremove');
+  $(this).addClass('btn-remove');
   if (afterSibling == null) {
     $(this).parent().detach().appendTo('#card-table > .body.active');
   } else {
