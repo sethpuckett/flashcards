@@ -43,6 +43,10 @@ header {
   padding-top: 20px;
 }
 
+#card-table .header {
+  margin-bottom: 10px;
+}
+
 #card-table .header .card-column {
   padding: 5px;
   border-bottom: 3px solid gray;
@@ -52,13 +56,22 @@ header {
   margin-bottom: 150px;
 }
 
+#card-table .table-row {
+  padding: 5px;
+}
+
+#card-table .table-row.selected {
+  border: 3px solid #606060;
+  border-radius: 10px;
+}
+
 .card-column {
   width: 29%;
   display: inline-block;
 }
 
 .card {
-  border: 2px solid gray;
+  border: 2px solid #808080;
   border-radius: 10px;
   height: 100px;
   vertical-align: middle;
