@@ -15,8 +15,8 @@ $(document).ready(function () {
   $("#btn-hide-left").on('click', hideLeft);
   $("#btn-hide-right").on('click', hideRight);
   $("#card-table").on('click', '.card', toggleCard);
-  $("#card-table").on('click', ".btn-remove", removeCard);
-  $("#card-table").on('click', ".btn-unremove", unremoveCard);
+  $("#card-table").on('click', ".btn-remove", removeRow);
+  $("#card-table").on('click', ".btn-unremove", unremoveRow);
 
   $('#btn-load-deck').on('click', deckSelected);
   $('#btn-shuffle').on('click', shuffleAndMoveToTop);
@@ -76,17 +76,16 @@ function toggleSelectedNotes() {
 
 function removeAndSelectNext() {
   currentRow = getSelectedRow();
-  selectNextRow();
 
   if (currentRow != null) {
-    removeCard.call($(currentRow).find('.btn-remove')[0]);
+    removeRow.call($(currentRow).find('.btn-remove')[0]);
   }
 }
 
 function undoLastRemove() {
   row = $('#card-table > .body.removed > .table-row:last-child')[0];
   if (row == null) return;
-  unremoveCard.call($(row).find('.btn-unremove')[0], null, getSelectedRow());
+  unremoveRow.call($(row).find('.btn-unremove')[0], null, getSelectedRow());
   selectPreviousRow();
 }
 
@@ -252,14 +251,21 @@ function toggleCard() {
   selectRow.call(this);
 }
 
-function removeCard() {
+function removeRow() {
+  var selectedRow = getSelectedRow();
+  var removedRow =  $(this).parent()[0];
+
+  if (selectedRow == removedRow) {
+    selectNextRow();
+  }
+
   $(this).text('^');
   $(this).removeClass('btn-remove');
   $(this).addClass('btn-unremove');
-  $(this).parent().detach().appendTo('#card-table > .body.removed');
+  $(removedRow).detach().appendTo('#card-table > .body.removed');
 }
 
-function unremoveCard(_event, afterSibling) {
+function unremoveRow(_event, afterSibling) {
   $(this).text('x');
   $(this).removeClass('btn-unremove');
   $(this).addClass('btn-remove');
