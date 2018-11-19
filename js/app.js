@@ -19,7 +19,7 @@ $(document).ready(function () {
   $("#card-table").on('click', ".btn-unignore", unignoreCard);
 
   $('#btn-load-deck').on('click', deckSelected);
-  $('#btn-shuffle').on('click', shuffleDeck);
+  $('#btn-shuffle').on('click', shuffleAndMoveToTop);
 
   $(document).keypress(handleKey);
 });
@@ -220,6 +220,8 @@ function loadDeck(data, tabletop) {
   hideRight();
   hideNotes();
   selectFirstRow();
+  showKeyGuide();
+  setInstructions('Click cards, use buttons, or use keyboard shortcuts to toggle/shuffle/etc');
 }
 
 function hideAll() {
@@ -289,4 +291,12 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function setInstructions(text) {
+  $('#user-guide #instructions').text(text);
+}
+
+function showKeyGuide() {
+  $('#user-guide #keys').show();
 }

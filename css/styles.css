@@ -123,3 +123,23 @@ button {
   padding: 10px;
   line-height: 1.2;
 }
+
+#control-container {
+  margin-bottom: 10px;
+}
+
+#user-guide {
+  border: 2px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+#user-guide #instructions {
+  font-size: 20px;
+}
+
+#user-guide #keys {
+  display: none;
+}
