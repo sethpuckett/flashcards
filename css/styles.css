@@ -109,6 +109,7 @@ header {
 
 button {
   margin: 5px;
+  border-radius: 5px;
 }
 
 #deck-notes-container {
@@ -145,5 +146,9 @@ button {
 }
 
 #flashcard-container {
+  display: none;
+}
+
+#deck-notes {
   display: none;
 }

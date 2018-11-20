@@ -17,6 +17,7 @@ $(document).ready(function () {
   $("#card-table").on('click', '.card', toggleCard);
   $("#card-table").on('click', ".btn-remove", removeRow);
   $("#card-table").on('click', ".btn-unremove", unremoveRow);
+  $("#btn-show-deck-notes").on('click', showDeckNotes);
 
   $('#btn-load-deck').on('click', deckSelected);
   $('#btn-shuffle').on('click', shuffleAndMoveToTop);
@@ -80,6 +81,8 @@ function removeAndSelectNext() {
   if (currentRow != null) {
     removeRow.call($(currentRow).find('.btn-remove')[0]);
   }
+
+  scrollToSelectedRow();
 }
 
 function undoLastRemove() {
@@ -108,12 +111,15 @@ function selectNextRow() {
       $(nextRow).addClass('selected');
     }
   }
+
+  scrollToSelectedRow();
 }
 
 function selectFirstRow() {
   $('.table-row').removeClass('selected');
   var firstRow = $('#card-table > .body.active').children()[0];
   $(firstRow).addClass('selected');
+  scrollToSelectedRow();
 }
 
 function selectRow() {
@@ -135,6 +141,8 @@ function selectPreviousRow() {
       $(prevRow).addClass('selected');
     }
   }
+
+  scrollToSelectedRow();
 }
 
 function getSelectedRow() {
@@ -144,6 +152,12 @@ function getSelectedRow() {
   }
 
   return null;
+}
+
+function scrollToSelectedRow() {
+  row = getSelectedRow();
+  if (row == null) return;
+  row.scrollIntoView({ behavior: 'smooth' });
 }
 
 function loadAllDecks(data) {
@@ -218,9 +232,10 @@ function loadDeck(data, tabletop) {
 
   hideRight();
   hideNotes();
+  hideDeckNotes();
   selectFirstRow();
   showKeyGuide();
-  setInstructions('Hide or reveal cards using buttons, keyboard shortcuts, or by clicking on them. Words you know can be removed from the list using the "X" button or by keyboard shortcut.');
+  setInstructions('Hide or reveal cards using buttons, keyboard shortcuts, or by clicking on them. Words you know can be removed from the list using the "X" button or by using the keyboard shortcut.');
   showFlaschardContainer();
 }
 
@@ -310,4 +325,14 @@ function showKeyGuide() {
 
 function showFlaschardContainer() {
   $('#flashcard-container').show();
+}
+
+function showDeckNotes() {
+  $('#btn-show-deck-notes').hide();
+  $('#deck-notes').show();
+}
+
+function hideDeckNotes() {
+  $('#btn-show-deck-notes').show();
+  $('#deck-notes').hide();
 }
