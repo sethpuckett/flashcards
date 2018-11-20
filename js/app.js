@@ -18,6 +18,7 @@ $(document).ready(function () {
   $("#card-table").on('click', ".btn-remove", removeRow);
   $("#card-table").on('click', ".btn-unremove", unremoveRow);
   $("#btn-show-deck-notes").on('click', showDeckNotes);
+  $('#btn-toggle-theme').on('click', toggleTheme);
 
   $('#btn-load-deck').on('click', deckSelected);
   $('#btn-shuffle').on('click', shuffleAndMoveToTop);
@@ -190,9 +191,10 @@ function loadDeck(data, tabletop) {
 
   var left = Object.keys(data[0])[0];
   var right = Object.keys(data[0])[1];
-  deck = decks.find(function(el) { return el.key === tabletop.key; });
+  var title = $('#sel-deck').find(':selected').text();
 
-  $('#header-title').text($('#sel-deck').find(':selected').text());
+  deck = decks.find(function(el) { return el.key === tabletop.key; });
+  $('#header-title').text(title);
   $('#card-header-left').text(left);
   $('#card-header-right').text(right);
   $('#btn-hide-left').text(`Hide ${left}`);
@@ -230,6 +232,7 @@ function loadDeck(data, tabletop) {
     $('#card-table > .body.active').append(row);
   });
 
+  document.title = title;
   hideRight();
   hideNotes();
   hideDeckNotes();
@@ -354,4 +357,20 @@ function hideDeckNotes() {
 
 function showCardButtons() {
   $('#card-buttons').show();
+}
+
+function toggleTheme() {
+  if ($('html').hasClass('dark')) {
+    $("html").removeClass('dark');
+    $("body").removeClass('dark');
+    $("html").addClass('light');
+    $("body").addClass('light');
+    $("#btn-toggle-theme").text('Switch to Dark Theme');
+  } else {
+    $("html").removeClass('light');
+    $("body").removeClass('light');
+    $("html").addClass('dark');
+    $("body").addClass('dark');
+    $("#btn-toggle-theme").text('Switch to Light Theme');
+  }
 }

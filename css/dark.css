@@ -1,0 +1,41 @@
+html.dark, body.dark {
+  height: 100%;
+  font-size: 18px;
+  color: #ddd;
+  background-color: #303030;
+}
+
+.dark #btn-toggle-theme {
+  background-color: #eee;
+  color: #222;
+  font-size: .7em;
+}
+
+.dark #card-table .table-row.selected {
+  border: 3px solid #6e89b1;
+}
+
+.dark button {
+  height: 1.75em;
+  margin: 1%;
+  border-radius: 5px;
+  background-color: #906020;
+  border-color: #303030;
+  color: #ffe5b3;
+}
+
+.dark a:link,
+.dark a:hover,
+.dark a:active {
+  color: #afcefd;
+}
+
+.dark a:visited {
+  color: rgb(171, 102, 180);
+}
+
+@media screen and (max-width: 767px) {
+  .dark #card-table .table-row.selected {
+    border: none;
+  }
+}

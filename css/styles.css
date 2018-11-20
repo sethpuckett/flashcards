@@ -19,7 +19,6 @@ html, body {
   height: 100%;
   font-size: 18px;
   color: #505050;
-  background-color: #FFCCC5;
 }
 
 header {
@@ -76,7 +75,7 @@ footer {
 }
 
 #card-table .table-row.selected {
-  border: 3px solid #74b0f9;
+  border: 3px solid #0056d8;
   border-radius: 10px;
 }
 
@@ -131,8 +130,8 @@ button {
   height: 1.75em;
   margin: 1%;
   border-radius: 5px;
-  background-color: #c0eaf1;
-  color: #505050;
+  background-color: #e0a041;
+  color: #404040;
 }
 
 button.btn-remove, button.btn-unremove {
@@ -195,6 +194,20 @@ button.btn-remove, button.btn-unremove {
   display: none;
 }
 
+#toggle-theme-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 200px;
+  z-index: 1;
+}
+
+#btn-toggle-theme {
+  background-color: #222;
+  color: #eee;
+  font-size: .7em;
+}
+
 @media screen and (max-width: 1023px) {
   #wrapper {
     width: 100%;
@@ -242,5 +255,9 @@ button.btn-remove, button.btn-unremove {
 
   #card-table .table-row.selected {
     border: none;
+  }
+
+  #toggle-theme-container {
+    display: none;
   }
 }
