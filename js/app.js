@@ -220,7 +220,7 @@ function loadDeck(data, tabletop) {
   hideNotes();
   selectFirstRow();
   showKeyGuide();
-  setInstructions('Click cards, use buttons, or use keyboard shortcuts to toggle/shuffle/etc');
+  setInstructions('Hide or reveal cards using buttons, keyboard shortcuts, or by clicking on them. Words you know can be removed from the list using the "X" button or by keyboard shortcut.');
   showFlaschardContainer();
 }
 

@@ -61,7 +61,7 @@ header {
 }
 
 #card-table .table-row.selected {
-  border: 3px solid #606060;
+  border: 3px solid #cc3c3c;
   border-radius: 10px;
 }
 
