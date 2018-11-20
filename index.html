@@ -10,24 +10,28 @@
 <body>
   <div id='wrapper'>
     <header>
-      <h1 id='header-title' >Flashcards </h1>
+      <h1 id='header-title' >Seth's Flashcards </h1>
     </header>
     <div id='content'>
       <div id='control-container'>
         <select id='sel-deck'></select>
         <button id='btn-load-deck'>Load Deck</button>
         <br />
-        <button id='btn-hide-all'>Hide All</button>
-        <button id='btn-show-all'>Show All</button>
-        <button id='btn-hide-left'>Hide Left</button>
-        <button id='btn-hide-right'>Hide Right</button>
-        <button id='btn-shuffle'>Shuffle Cards</button>
+        <div id="card-buttons">
+          <button id='btn-hide-all'>Hide All</button>
+          <button id='btn-show-all'>Show All</button>
+          <button id='btn-hide-left'>Hide Left</button>
+          <button id='btn-hide-right'>Hide Right</button>
+          <button id='btn-shuffle'>Shuffle Cards</button>
+        </div>
       </div>
       <div id="user-guide">
         <p id="instructions">Pick a deck and press 'Load Deck' to start.</p>
-        <div id="keys">
+        <div id="keys-container">
+          <div id="keys">
             <p><strong>A</strong>: Toggle left card &nbsp;<strong>S</strong>: Toggle right card &nbsp;<strong>D</strong>: Toggle notes card &nbsp;<strong>F</strong>: Remove card and move on</p>
-            <p><strong>G</strong>: Undo last removal &nbsp;<strong>E</strong>: Move previous &nbsp;<strong>R</strong>: Move next &nbsp;<strong>Q</strong>: Shuffle and move to top</p>
+            <p><strong>G</strong>: Undo last removal &nbsp;<strong>E</strong>: Move to previous &nbsp;<strong>R</strong>: Move to next &nbsp;<strong>Q</strong>: Shuffle and move to top</p>
+        </div>
         </div>
       </div>
       <div id="deck-notes-container">
@@ -42,6 +46,7 @@
               <div class='card-column' id='card-header-left' >Left</div>
               <div class='card-column' id='card-header-right' >Right</div>
               <div class='card-column' id='card-header-notes'>Notes</div>
+              <div class="filler"></div>
             </div>
           </div>
           <div class='body active'></div>
@@ -51,6 +56,9 @@
       </div>
     </div>
   </div>
+  <footer>
+    Created by <a href="https://www.sethpuckett.com" target="_blank">Seth Puckett</a>
+  </footer>
   <script
     src='https://code.jquery.com/jquery-3.1.1.min.js'
     integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8='

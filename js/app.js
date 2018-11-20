@@ -235,7 +235,12 @@ function loadDeck(data, tabletop) {
   hideDeckNotes();
   selectFirstRow();
   showKeyGuide();
-  setInstructions('Hide or reveal cards using buttons, keyboard shortcuts, or by clicking on them. Words you know can be removed from the list using the "X" button or by using the keyboard shortcut.');
+  showCardButtons();
+  setInstructions([
+    'The currently selected row is outlined in blue. Use keyboard shortcuts to switch.',
+    'Hide or reveal cards using the buttons above, keyboard shortcuts, or by clicking on the cards.',
+    'Words can be removed from the list using the "X" button or by using the keyboard shortcut.'
+  ]);
   showFlaschardContainer();
 }
 
@@ -271,7 +276,13 @@ function removeRow() {
   var removedRow =  $(this).parent()[0];
 
   if (selectedRow == removedRow) {
-    selectNextRow();
+    // if next row is not available it means final row is selected. Keep selection on final item
+    var nextRow = $(row).next()[0];
+    if (nextRow != null) {
+      selectNextRow();
+    } else {
+      selectPreviousRow();
+    }
   }
 
   $(this).text('^');
@@ -315,12 +326,16 @@ function shuffle(array) {
   return array;
 }
 
-function setInstructions(text) {
-  $('#user-guide #instructions').text(text);
+function setInstructions(instructions) {
+  $('#user-guide #instructions').empty();
+  $('#user-guide #instructions').append("<ul />");
+  instructions.forEach(function(text) {
+    $('#user-guide #instructions ul').append(`<li>${text}</li>`)
+  });
 }
 
 function showKeyGuide() {
-  $('#user-guide #keys').show();
+  $('#user-guide #keys-container').show();
 }
 
 function showFlaschardContainer() {
@@ -335,4 +350,8 @@ function showDeckNotes() {
 function hideDeckNotes() {
   $('#btn-show-deck-notes').show();
   $('#deck-notes').hide();
+}
+
+function showCardButtons() {
+  $('#card-buttons').show();
 }
