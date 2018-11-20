@@ -96,7 +96,7 @@ function undoLastRemove() {
 function shuffleAndMoveToTop() {
   shuffleDeck();
   selectFirstRow();
-  window.scrollTo(0, 0);
+  scrollToSelectedRow();
 }
 
 function selectNextRow() {
@@ -201,9 +201,7 @@ function loadDeck(data, tabletop) {
   $('#btn-hide-right').text(`Hide ${right}`);
 
   if (deck.notes != null && deck.notes != '') {
-    $('#deck-notes').empty();
-    $('#deck-notes').append(`<p>${deck.notes}</p>`);
-    $('#deck-notes-container').show();
+    loadDeckNotes(deck.notes);
   } else {
     $('#deck-notes-container').hide();
   }
@@ -343,6 +341,12 @@ function showKeyGuide() {
 
 function showFlaschardContainer() {
   $('#flashcard-container').show();
+}
+
+function loadDeckNotes(notes) {
+  $('#deck-notes-content').empty();
+  $('#deck-notes-content').append(`<p>${notes}</p>`);
+  $('#deck-notes-container').show();
 }
 
 function showDeckNotes() {

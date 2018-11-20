@@ -141,10 +141,14 @@ button.btn-remove, button.btn-unremove {
 
 #deck-notes-container {
   display: none;
+  margin-top: 1em;
 }
 
-
 #deck-notes {
+  display: none;
+}
+
+#deck-notes-content {
   border: 2px solid gray;
   border-radius: 10px;
   text-align: left;
@@ -167,7 +171,7 @@ button.btn-remove, button.btn-unremove {
 #user-guide #instructions {
   font-size: 20px;
   margin-top: 1%;
-  margin-bottom: 2.5em;
+  margin-bottom: 1.5em;
 }
 
 #user-guide #instructions ul {
@@ -179,7 +183,7 @@ button.btn-remove, button.btn-unremove {
 }
 
 #user-guide #instructions li {
-  margin-bottom: 1em;
+  margin-bottom: .5em;
 }
 
 #user-guide #keys-container {
@@ -187,10 +191,6 @@ button.btn-remove, button.btn-unremove {
 }
 
 #flashcard-container {
-  display: none;
-}
-
-#deck-notes {
   display: none;
 }
 
@@ -230,6 +230,7 @@ button.btn-remove, button.btn-unremove {
 
   #sel-deck {
     width: 100%;
+    margin-bottom: 1em;
     text-align: center;
   }
 
@@ -237,7 +238,7 @@ button.btn-remove, button.btn-unremove {
     width: 100%;
   }
 
-  #user-guide #keys {
+  #user-guide {
     display: none;
   }
 
