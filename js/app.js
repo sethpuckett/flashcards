@@ -364,17 +364,17 @@ function showCardButtons() {
 }
 
 function toggleTheme() {
-  if ($('html').hasClass('dark')) {
-    $("html").removeClass('dark');
-    $("body").removeClass('dark');
-    $("html").addClass('light');
-    $("body").addClass('light');
-    $("#btn-toggle-theme").text('Switch to Dark Theme');
-  } else {
+  if ($('html').hasClass('light')) {
     $("html").removeClass('light');
     $("body").removeClass('light');
     $("html").addClass('dark');
     $("body").addClass('dark');
     $("#btn-toggle-theme").text('Switch to Light Theme');
+  } else {
+    $("html").removeClass('dark');
+    $("body").removeClass('dark');
+    $("html").addClass('light');
+    $("body").addClass('light');
+    $("#btn-toggle-theme").text('Switch to Dark Theme');
   }
 }

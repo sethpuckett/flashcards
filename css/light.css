@@ -1,0 +1,35 @@
+html.light, body.light {
+  color: #505050;
+  background-color: #fff;
+}
+
+.light #btn-toggle-theme {
+  background-color: #222;
+  color: #eee;
+}
+
+.light #card-table .table-row.selected {
+  border: 3px solid #6e89b1;
+}
+
+.light button {
+  background-color: #e0a041;
+  border-color: #bababa;
+  color: #404040;
+}
+
+.light a:link,
+.light a:hover,
+.light a:active {
+  color: #0000ee;
+}
+
+.light a:visited {
+  color: #551a8b;
+}
+
+@media screen and (max-width: 767px) {
+  .light #card-table .table-row.selected {
+    border: none;
+  }
+}

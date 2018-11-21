@@ -18,7 +18,8 @@ height: 0;
 html, body {
   height: 100%;
   font-size: 18px;
-  color: #505050;
+  color: #ddd;
+  background-color: #303030;
 }
 
 header {
@@ -130,8 +131,9 @@ button {
   height: 1.75em;
   margin: 1%;
   border-radius: 5px;
-  background-color: #e0a041;
-  color: #404040;
+  background-color: #906020;
+  border-color: #303030;
+  color: #ffe5b3;
 }
 
 button.btn-remove, button.btn-unremove {
@@ -203,9 +205,19 @@ button.btn-remove, button.btn-unremove {
 }
 
 #btn-toggle-theme {
-  background-color: #222;
-  color: #eee;
+  background-color: #eee;
+  color: #222;
   font-size: .7em;
+}
+
+a:link,
+a:hover,
+a:active {
+  color: #afcefd;
+}
+
+a:visited {
+  color: rgb(171, 102, 180);
 }
 
 @media screen and (max-width: 1023px) {
