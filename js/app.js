@@ -2,8 +2,7 @@ var decks = [];
 
 $(document).ready(function () {
 
-  var TOPIC_SPREADSHEET_KEY = '159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU';
-
+  setTheme(DEFAULT_THEME);
   Tabletop.init({
     key: TOPIC_SPREADSHEET_KEY,
     callback: loadAllDecks,
@@ -365,16 +364,24 @@ function showCardButtons() {
 
 function toggleTheme() {
   if ($('html').hasClass('light')) {
-    $("html").removeClass('light');
-    $("body").removeClass('light');
-    $("html").addClass('dark');
-    $("body").addClass('dark');
-    $("#btn-toggle-theme").text('Switch to Light Theme');
+    setTheme('dark');
   } else {
-    $("html").removeClass('dark');
-    $("body").removeClass('dark');
-    $("html").addClass('light');
-    $("body").addClass('light');
+    setTheme('light')
+  }
+}
+
+function setTheme(theme) {
+  $("html").removeClass('light');
+  $("body").removeClass('light');
+  $("html").removeClass('dark');
+  $("body").removeClass('dark');
+
+  $("html").addClass(theme);
+  $("body").addClass(theme);
+
+  if (theme == 'light') {
     $("#btn-toggle-theme").text('Switch to Dark Theme');
+  } else {
+    $("#btn-toggle-theme").text('Switch to Light Theme');
   }
 }
