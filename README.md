@@ -1,2 +1,2 @@
 # flashcards
-Simple flash card app
+Simple flash card app.
