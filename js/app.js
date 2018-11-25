@@ -11,8 +11,8 @@ $(document).ready(function () {
 
   $("#btn-hide-all").on('click', hideAll);
   $("#btn-show-all").on('click', showAll);
-  $("#btn-hide-left").on('click', hideLeft);
-  $("#btn-hide-right").on('click', hideRight);
+  $("#btn-show-left").on('click', showLeftColumn);
+  $("#btn-show-right").on('click', showRightColumn);
   $("#card-table").on('click', '.card', toggleCard);
   $("#card-table").on('click', ".btn-remove", removeRow);
   $("#card-table").on('click', ".btn-unremove", unremoveRow);
@@ -52,10 +52,10 @@ function handleKey(e) {
       shuffleAndMoveToTop();
       break;
     case 'z':
-      hideLeft();
+      showLeftColumn();
       break;
     case 'x':
-      hideRight();
+      showRightColumn();
       break;
     case 'c':
       hideAll();
@@ -208,8 +208,8 @@ function loadDeck(data, tabletop) {
   $('#header-title').text(title);
   $('#card-header-left').text(left);
   $('#card-header-right').text(right);
-  $('#btn-hide-left').text(`Hide ${left}`);
-  $('#btn-hide-right').text(`Hide ${right}`);
+  $('#btn-show-left').text(`Show ${left}`);
+  $('#btn-show-right').text(`Show ${right}`);
 
   if (deck.notes != null && deck.notes != '') {
     loadDeckNotes(deck.notes);
@@ -242,7 +242,6 @@ function loadDeck(data, tabletop) {
   });
 
   document.title = title;
-  hideRight();
   hideNotes();
   hideDeckNotes();
   selectFirstRow();
@@ -254,6 +253,12 @@ function loadDeck(data, tabletop) {
     'Words can be removed from the list using the "X" button or by using the keyboard shortcut.'
   ]);
   showFlaschardContainer();
+
+  if(DEFAULT_VISIBLE_COLUMN === 'right') {
+    showRightColumn();
+  } else {
+    showLeftColumn();
+  }
 }
 
 function hideAll() {
@@ -264,14 +269,14 @@ function showAll() {
   $('.card p').show();
 }
 
-function hideLeft() {
-  $('.card.right p').show()
-  $('.card.left p').hide();
+function showLeftColumn() {
+  $('.card.right p').hide()
+  $('.card.left p').show();
 }
 
-function hideRight() {
-  $('.card.left p').show();
-  $('.card.right p').hide();
+function showRightColumn() {
+  $('.card.left p').hide();
+  $('.card.right p').show();
 }
 
 function hideNotes() {
