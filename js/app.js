@@ -51,6 +51,18 @@ function handleKey(e) {
     case 'q':
       shuffleAndMoveToTop();
       break;
+    case 'z':
+      hideLeft();
+      break;
+    case 'x':
+      hideRight();
+      break;
+    case 'c':
+      hideAll();
+      break;
+    case 'v':
+      showAll();
+      break;
   }
 }
 
