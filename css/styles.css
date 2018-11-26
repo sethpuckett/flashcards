@@ -106,6 +106,7 @@ footer {
 .card.notes {
   text-align: left;
   font-size: 13px;
+  overflow: scroll;
 }
 
 .card.notes p {
