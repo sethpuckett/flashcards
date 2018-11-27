@@ -252,6 +252,7 @@ a:visited {
 
   #mobile-disclaimer {
     display: block;
+    width: 100%;
     text-align: center;
     font-size: 12px;
     margin-bottom: 1em;
