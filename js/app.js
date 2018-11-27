@@ -167,9 +167,12 @@ function getSelectedRow() {
 }
 
 function scrollToSelectedRow() {
-  row = getSelectedRow();
-  if (row == null) return;
-  row.scrollIntoView({ behavior: 'smooth' });
+  // Don't auto scroll on small screens
+  if (window.width > 767) {
+    row = getSelectedRow();
+    if (row == null) return;
+    row.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function loadAllDecks(data) {
