@@ -168,7 +168,7 @@ function getSelectedRow() {
 
 function scrollToSelectedRow() {
   // Don't auto scroll on small screens
-  if (window.width > 767) {
+  if (window.innerWidth > 767) {
     row = getSelectedRow();
     if (row == null) return;
     row.scrollIntoView({ behavior: 'smooth' });
