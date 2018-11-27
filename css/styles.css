@@ -43,6 +43,10 @@ footer {
   clear: both;
 }
 
+#mobile-disclaimer {
+  display: none;
+}
+
 #card-buttons {
   display: none;
   padding: 1em;
@@ -244,6 +248,13 @@ a:visited {
 
   header h1 {
     font-size: 26px;
+  }
+
+  #mobile-disclaimer {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 1em;
   }
 
   #load-deck-container {
