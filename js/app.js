@@ -252,8 +252,8 @@ function loadDeck(data, tabletop) {
   showCardButtons();
   setInstructions([
     'The currently selected row is outlined in blue. Use keyboard shortcuts to switch.',
-    'Hide or reveal cards using the buttons above, keyboard shortcuts, or by clicking on the cards.',
-    'Words can be removed from the list using the "X" button or by using the keyboard shortcut.'
+    'Hide or reveal cards using keyboard shortcuts (preferred), the buttons above, or by clicking on the cards.',
+    'Words can be removed from the list using keyboard shortcuts or by clicking the "X" button.'
   ]);
   showFlaschardContainer();
 
