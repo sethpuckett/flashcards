@@ -5,8 +5,7 @@ $(document).ready(function () {
   setTheme(DEFAULT_THEME);
   Tabletop.init({
     key: TOPIC_SPREADSHEET_KEY,
-    callback: loadAllDecks,
-    simpleSheet: true
+    callback: loadAllDecks
   });
 
   $("#btn-hide-all").on('click', hideAll);
@@ -175,39 +174,48 @@ function scrollToSelectedRow() {
   }
 }
 
-function loadAllDecks(data) {
+function loadAllDecks(data, tabletop) {
   decks = [];
+  var allNotes = tabletop.sheets('notes').all();
 
-  data.forEach(function(deck) {
-    var name = deck.name;
-    var key = deck.key;
-    var notes = deck.notes;
+  tabletop.foundSheetNames.forEach(function(sheetName) {
+    if (sheetName === 'notes') {
+      return;
+    }
 
-    decks.push({'name': name, 'key': key, 'notes': notes });
+    var noteRow = allNotes.find(function(noteEntry) {
+      return noteEntry.name === sheetName;
+    });
+    notes = noteRow != null ? noteRow.notes : '';
+    cards = tabletop.sheets(sheetName)
 
-    var option = `<option value='${key}'>${name}</option>`;
+    decks.push({ 'name': sheetName, 'notes': notes, 'cards': cards });
+
+    var option = `<option value='${sheetName}'>${sheetName}</option>`;
     $('#sel-deck').append(option);
   });
 }
 
 function deckSelected() {
-  key = $('#sel-deck').find(':selected').val();
-  Tabletop.init({
-    key: key,
-    callback: loadDeck,
-    simpleSheet: true
-  });
+  deckName = $('#sel-deck').find(':selected').val();
+  loadDeck(deckName);
 }
 
-function loadDeck(data, tabletop) {
+function loadDeck(deckName) {
+  deck = decks.find(function(d) {
+    return d.name === deckName;
+  });
+  if (deck == null) {
+    return;
+  }
+
   $('#card-table > .body.active').empty();
   $('#card-table > .body.removed').empty();
 
-  var left = Object.keys(data[0])[0];
-  var right = Object.keys(data[0])[1];
-  var title = $('#sel-deck').find(':selected').text();
+  var left = deck.cards.columnNames[0];
+  var right = deck.cards.columnNames[1];
+  var title = deck.name;
 
-  deck = decks.find(function(el) { return el.key === tabletop.key; });
   $('#header-title').text(title);
   $('#card-header-left').text(left);
   $('#card-header-right').text(right);
@@ -220,7 +228,7 @@ function loadDeck(data, tabletop) {
     $('#deck-notes-container').hide();
   }
 
-  data.forEach(card => {
+  deck.cards.elements.forEach(card => {
     leftEntry = card[left];
     rightEntry = card[right];
     notesEntry = card['notes'];
