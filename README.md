@@ -27,7 +27,7 @@ This application is an attempt to solve these problems with the following featur
 
 When the app loads the first step is to select a deck from the dropdown list and click the `Load Deck` button. This will load all the cards in the deck. By default one column will be hidden and the other column will be visible.
 
-There are several UI buttons available to interact with the deck
+There are several buttons available on the UI to interact with the deck:
 * **Show 'left'**: Reveal all cards in the left column (and hide the right)
 * **Show 'right'**: Reveal all cards in the right column (and hide the left)
 * **Hide All**: Hide all cards
@@ -60,7 +60,7 @@ The app technically works in mobile & other small browsers and responds to touch
 
 ## Forking/Creating Your Own Flashcards
 
-Want to make your own flashcards or modify the app? Great! Here's how.
+Want to make your own flashcards or modify the app for your own use? Great!
 
 ### Running the application
 
@@ -71,16 +71,16 @@ Seth's Flashcards is designed to be simple, so there is no build step. Just open
 There are a few configuration options available for Seth's Flashcards. These can be found in `js/config.js`. To make changes just update any of the available options and refresh the page. The most important option for creating your own set of flashcards is `TOPIC_SPREADSHEET_KEY`. More on that below.
 
 * **TOPIC_SPREADSHEET_KEY**: The key for the public, published Google Spreadsheet containing flashcard values
-* **DEFAULT_THEME**: Determines which theme should be loaded when the application starts, either `light` or `dark`; can be changed at any time while the application is in use
-* **DEFAULT_VISIBLE_COLUMN**: Determines which column should be visible and which should be hidden when the application is loaded, either `left` or `right`; can be changed at any time while the application is in use
+* **DEFAULT_THEME**: Determines which theme should be loaded when the application starts, either `light` or `dark`
+* **DEFAULT_VISIBLE_COLUMN**: Determines which column should be visible and which should be hidden when the application starts, either `left` or `right`
 
 ### Setting up the spreadsheet
 
-Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tabletop.js`. There is a little setup involved and the spreadsheets need to be formatted in a particular way for everything to work correctly. The steps below will help you get started.
+Seth's Flashcards reads the card values from Google Spreadsheets using `Tabletop.js`. There is a little setup involved and the spreadsheets need to be formatted in a particular way for everything to work correctly. The steps below will help you get started.
 
 1. Go to [Google Drive](https://drive.google.com) and create a new **Google Sheet**.
 2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
-3. Each sheet needs 2 columns for values and optionally a third column for `notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `notes` column it **must** be the third column and have the heading "**Notes**".
+3. Each sheet needs 2 columns for values and optionally a third column for `Notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `Notes` column it **must** be the third column and have the heading `Notes`.
 **Example**:
 ![Creating cards in a spreadsheet](img/app-cards.png "Creatings cards in a spreadsheet")
 
@@ -104,3 +104,4 @@ And that's it! If everything is setup correctly when you load the page the dropd
   * Double check your spelling and your casing. If you're adding deck notes the sheet must be named `notes` and must have 2 columns with headings `name` and `notes`. The values in the `name` column must much the names of your other sheets **exactly**. Casing is important.
   * Did you publish your spreadsheet to the web **and** share it? You need to do both. Check the [Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) if you're not sure.
   * Are there extra columns and/or blank rows in your spreadsheet? If so, get rid of them and try again.
+* [Here](https://docs.google.com/spreadsheets/d/159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU/edit?usp=sharing) is a link to the Google Sheet I use for Spanish/English flashcards. Feel free to use it as an example.
