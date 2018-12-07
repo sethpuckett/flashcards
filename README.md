@@ -90,9 +90,9 @@ Seth's Flashcards reads the card values from Google Spreadsheets using `Tabletop
 ![Creating deck notes in a spreadsheet](img/app-notes.png "Creatings deck notes in a spreadsheet")
 
 5. Publish your spreadsheet and make it public. Check out the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) for more detailed instructions on this part. The `tldr` steps are here:
-  a. Publish your spreadsheet to the web.
-  b. Share your spreadsheet with `anyone with the link`.
-  c. Copy the url from the `link to share` (or just the key value from the link).
+  * Publish your spreadsheet to the web.
+  * Share your spreadsheet with `anyone with the link`.
+  * Copy the url from the `link to share` (or just the key value from the link).
 6. Within `js/config.js` set `TOPIC_SPREADSHEET_KEY` to the key or shareable link value copied from your Google Sheet.
 
 And that's it! If everything is setup correctly when you load the page the dropdown menu should be populated with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
