@@ -20,7 +20,7 @@ Seth's Flashcards supports the following features to solve these problems:
 
 ### Basic Operation
 
-When the app loads the first step is to select a deck from the dropdown list and click the 'Load Deck' button. This will load all the cards in the deck. By default one column will be hidden and the other column will be visible.
+When the app loads the first step is to select a deck from the dropdown list and click the `Load Deck` button. This will load all the cards in the deck. By default one column will be hidden and the other column will be visible.
 
 There are several UI buttons available to interact with the deck
 * **Show 'left'**: Reveal all cards in the left column (and hide the right)
@@ -76,12 +76,30 @@ Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tableto
 1. Go to [Google Drive](https://drive.google.com) and create a new **Google Sheet**.
 2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
 3. Each sheet needs 2 columns for values and optionally a third column for `notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `notes` column it **must** be the third column and have the heading "**Notes**".
-
+**Example**:
 | Klingon         | English                              | Notes                                                     |
 | --------------- | ------------------------------------ | --------------------------------------------------------- |
 | HIja            | Yes                                  |                                                           |
 | Ghobe’          | No                                   |                                                           |
 | Qapla’          | Success!                             | Common exclamation, used to wish fortune on another       |
 | Hab SoSlI’ Quch | Your mother has a smooth forehead.   | The gravest insult, don't say it unless you want a fight  |
+4. You also have the ability to add `Deck Notes` that will appear at the top of the page when a new deck is loaded. This can be useful for describing the content of decks and providing links to additional resources. To add deck notes add a new sheet to your Google Sheet with the specially reserved name `notes`. This sheet needs 2 columns with the headings `name` and `notes`. Values in the `name` column must match the name of a sheet **exactly**. Values in the note column support html, so feel free to add links, line breaks, bold text, etc.
+**Example**:
+| name            | notes                                                                                                                         |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Klingon Phrases | Impress your friends with these useful phrases!\<br \/\>\<a href="https://www.kli.org/"\>The Klingon Language Institute\<\/a> |
+5. Publish your spreadsheet and make it public. Check out the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) for more detailed instructions on this part. The `tldr` steps are here:
+  a. Publish your spreadsheet to the web.
+  b. Share your spreadsheet with `anyone with the link`.
+  c. Copy the url from the `link to share` (or just the key value from the link).
+6. Within `js/config.js` set `TOPIC_SPREADSHEET_KEY` to the key or shareable link value copied from your Google Sheet.
 
-I recommend reading through the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started).
+And that's it! If everything is setup correctly when you load the page the dropdown menu should be populated with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
+
+** Help
+
+* Found a bug? Want a feature? Feel free to open an issue and/or create a PR. I want to keep this fast and simple, though, so nothing too fancy.
+* Trying to make your own flashcards and something isn't working? Here are some tips:
+  * Double check your spelling and your casing. If you're adding deck notes the sheet must be named `notes` and must have 2 columns with headings `name` and `notes`. The values in the `name` column must much the names of your other sheets **exactly**. Casing is important.
+  * Did you publish your spreadsheet to the web **and** share it? You need to do both. Check the [Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) if you're not sure.
+  * Are there extra columns and/or blank rows in your spreadsheet? If so, get rid of them and try again.
