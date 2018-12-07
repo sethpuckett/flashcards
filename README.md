@@ -82,20 +82,12 @@ Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tableto
 2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
 3. Each sheet needs 2 columns for values and optionally a third column for `notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `notes` column it **must** be the third column and have the heading "**Notes**".
 **Example**:
-
-| Klingon         | English                              | Notes                                                     |
-| --------------- | ------------------------------------ | --------------------------------------------------------- |
-| HIja            | Yes                                  |                                                           |
-| Ghobe’          | No                                   |                                                           |
-| Qapla’          | Success!                             | Common exclamation, used to wish fortune on another       |
-| Hab SoSlI’ Quch | Your mother has a smooth forehead.   | The gravest insult, don't say it unless you want a fight  |
+![Creating cards in a spreadsheet](img/app-cards.png "Creatings cards in a spreadsheet")
 
 4. You also have the ability to add `Deck Notes` that will appear at the top of the page when a new deck is loaded. This can be useful for describing the content of decks and providing links to additional resources. To add deck notes add a new sheet to your Google Sheet with the specially reserved name `notes`. This sheet needs 2 columns with the headings `name` and `notes`. Values in the `name` column must match the name of a sheet **exactly**. Values in the note column support html, so feel free to add links, line breaks, bold text, etc.
 **Example**:
 
-| name            | notes                                                                                                                         |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Klingon Phrases | Impress your friends with these useful phrases!\<br \/\>\<a href="https://www.kli.org/"\>The Klingon Language Institute\<\/a> |
+![Creating deck notes in a spreadsheet](img/app-notes.png "Creatings deck notes in a spreadsheet")
 
 5. Publish your spreadsheet and make it public. Check out the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) for more detailed instructions on this part. The `tldr` steps are here:
   a. Publish your spreadsheet to the web.
@@ -105,7 +97,7 @@ Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tableto
 
 And that's it! If everything is setup correctly when you load the page the dropdown menu should be populated with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
 
-** Help
+## Help
 
 * Found a bug? Want a feature? Feel free to open an issue and/or create a PR. I want to keep this fast and simple, though, so nothing too fancy.
 * Trying to make your own flashcards and something isn't working? Here are some tips:
