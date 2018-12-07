@@ -24,7 +24,7 @@ When the app loads the first step is to select a deck from the dropdown list and
 
 There are several UI buttons available to interact with the deck
 * **Show 'left'**: Reveal all cards in the left column (and hide the right)
-* **Shot 'right'**: Reveal all cards in the right column (and hide the left)
+* **Show 'right'**: Reveal all cards in the right column (and hide the left)
 * **Hide All**: Hide all cards
 * **Show All**: Reveal all cards
 * **Shuffle Cards**: Shuffle the deck (non-ignored cards only) and move the selection to the first card
@@ -55,4 +55,33 @@ The app technically works in mobile & other small browsers and responds to touch
 
 ## Forking / Creating Your Own Flashcards
 
-* Coming Soon
+Want to make your own flashcards or modify the app? Great! Here's how.
+
+### Running the application
+
+Seth's Flashcards is designed to be simple, so there is no build step. Just open `index.html` in your favorite browser and you're ready to go.
+
+### Configuring the application
+
+There are a few configuration options available for Seth's Flashcards. These can be found in `js/config.js`. To make changes just update any of the available options and refresh the page. The most important option for creating your own set of flashcards is `TOPIC_SPREADSHEET_KEY`. More on that below.
+
+* **TOPIC_SPREADSHEET_KEY**: The key for the public, published Google Spreadsheet containing flashcard values
+* **DEFAULT_THEME**: Determines which theme should be loaded when the application starts, either `light` or `dark`; can be changed at any time while the application is in use
+* **DEFAULT_VISIBLE_COLUMN**: Determines which column should be visible and which should be hidden when the application is loaded, either `left` or `right`; can be changed at any time while the application is in use
+
+### Setting up the spreadsheet
+
+Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tabletop.js`. There is a little setup involved and the spreadsheets need to be formatted in a particular way for everything to work correctly. The steps below will help you get started.
+
+1. Go to [Google Drive](https://drive.google.com) and create a new **Google Sheet**.
+2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
+3. Each sheet needs 2 columns for values and optionally a third column for `notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `notes` column it **must** be the third column and have the heading "**Notes**".
+
+| Klingon         | English                              | Notes                                                     |
+| --------------- | ------------------------------------ | --------------------------------------------------------- |
+| HIja            | Yes                                  |                                                           |
+| Ghobe’          | No                                   |                                                           |
+| Qapla’          | Success!                             | Common exclamation, used to wish fortune on another       |
+| Hab SoSlI’ Quch | Your mother has a smooth forehead.   | The gravest insult, don't say it unless you want a fight  |
+
+I recommend reading through the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started).
