@@ -1,6 +1,13 @@
 # Seth's Flashcards
+![App Screenshot](img/app-screenshot-01.png "App Screenshot")
 
 My name is Seth and these are my flashcards. This application is designed to be simple to use, fast, and responsive to keyboard commands.
+
+## Table of Contents
+* **[Overview & Purpose](#overview--purpose)**
+* **[User Guide](#user-guide)**
+* **[Forking/Creating Your Own Flashcards](#forking--creating-your-own-flashcards)**
+* **[Help](#help)**
 
 ## Overview & Purpose
 
@@ -10,15 +17,13 @@ When I started doing language study I couldn't find a flashcard application or w
 * Slow load times
 * Minimal or no keyboard support
 
-Seth's Flashcards supports the following features to solve these problems:
+This application is an attempt to solve these problems with the following features:
 * Decks and cards are managed via Google Spreadsheets. This makes it easy to add, remove, and edit cards en masse.
 * No ads or other clutter. A minimal UI limits distraction and supports focused study.
 * Once a deck is loaded there are no more calls to the server. Switching, hiding, revealing, and shuffling cards is all handled client side, meaning the application is quick and responsive.
 * Once a deck is loaded all primary functionality is available via keyboard shortcuts (using one hand). After a small learning curve managing the flashcards via the keyboard is significantly faster than fiddling with a mouse.
 
 ## User Guide
-
-### Basic Operation
 
 When the app loads the first step is to select a deck from the dropdown list and click the `Load Deck` button. This will load all the cards in the deck. By default one column will be hidden and the other column will be visible.
 
@@ -53,7 +58,7 @@ On the bottom-left of the screen is a **Switch Theme** button that allows you to
 
 The app technically works in mobile & other small browsers and responds to touch commands, but it is really intended for use with large screens and a keyboard.
 
-## Forking / Creating Your Own Flashcards
+## Forking/Creating Your Own Flashcards
 
 Want to make your own flashcards or modify the app? Great! Here's how.
 
@@ -77,17 +82,21 @@ Seth's Flashcards reads flashcard values from Google Spreadsheets using `Tableto
 2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
 3. Each sheet needs 2 columns for values and optionally a third column for `notes`. Values in the first row are used as headers and are not placed on cards. If you're adding a `notes` column it **must** be the third column and have the heading "**Notes**".
 **Example**:
+
 | Klingon         | English                              | Notes                                                     |
 | --------------- | ------------------------------------ | --------------------------------------------------------- |
 | HIja            | Yes                                  |                                                           |
 | Ghobe’          | No                                   |                                                           |
 | Qapla’          | Success!                             | Common exclamation, used to wish fortune on another       |
 | Hab SoSlI’ Quch | Your mother has a smooth forehead.   | The gravest insult, don't say it unless you want a fight  |
+
 4. You also have the ability to add `Deck Notes` that will appear at the top of the page when a new deck is loaded. This can be useful for describing the content of decks and providing links to additional resources. To add deck notes add a new sheet to your Google Sheet with the specially reserved name `notes`. This sheet needs 2 columns with the headings `name` and `notes`. Values in the `name` column must match the name of a sheet **exactly**. Values in the note column support html, so feel free to add links, line breaks, bold text, etc.
 **Example**:
+
 | name            | notes                                                                                                                         |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | Klingon Phrases | Impress your friends with these useful phrases!\<br \/\>\<a href="https://www.kli.org/"\>The Klingon Language Institute\<\/a> |
+
 5. Publish your spreadsheet and make it public. Check out the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) for more detailed instructions on this part. The `tldr` steps are here:
   a. Publish your spreadsheet to the web.
   b. Share your spreadsheet with `anyone with the link`.
