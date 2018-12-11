@@ -181,6 +181,7 @@ button.btn-remove, button.btn-unremove {
 }
 
 #user-guide {
+  position: relative;
   border: 2px solid gray;
   border-radius: 10px;
   padding: 1%;
@@ -188,13 +189,20 @@ button.btn-remove, button.btn-unremove {
   font-size: 14px;
 }
 
-#user-guide #instructions {
+#user-guide #btn-hide-guide {
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  top: 10px;
+}
+
+#user-guide .instructions {
   font-size: 20px;
   margin-top: 1%;
   margin-bottom: 1.5em;
 }
 
-#user-guide #instructions ul {
+#user-guide .instructions ul {
   list-style-type: none;
   margin-top: 0;
   margin-bottom: 0;
@@ -202,8 +210,12 @@ button.btn-remove, button.btn-unremove {
   padding-right: 1%;
 }
 
-#user-guide #instructions li {
+#user-guide .instructions li {
   margin-bottom: .5em;
+}
+
+#user-guide #app-instructions {
+  display: none;
 }
 
 #user-guide #keys-container {
@@ -247,7 +259,7 @@ a:visited {
     font-size: 32px;
   }
 
-  #user-guide #instructions {
+  #user-guide .instructions {
     font-size: 16px;
   }
 }

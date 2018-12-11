@@ -17,6 +17,7 @@ $(document).ready(function () {
   $("#card-table").on('click', ".btn-unremove", unremoveRow);
   $("#btn-show-deck-notes").on('click', showDeckNotes);
   $('#btn-toggle-theme').on('click', toggleTheme);
+  $('#btn-hide-guide').on('click', hideGuide);
 
   $('#btn-load-deck').on('click', deckSelected);
   $('#btn-shuffle').on('click', shuffleAndMoveToTop);
@@ -272,12 +273,9 @@ function loadDeck(deckName) {
   hideDeckNotes();
   selectFirstRow();
   showKeyGuide();
+  showGuide();
   showCardButtons();
-  setInstructions([
-    'The currently selected row is outlined in blue. Use keyboard shortcuts to switch.',
-    'Hide or reveal cards using keyboard shortcuts (preferred), the buttons above, or by clicking on the cards.',
-    'Words can be removed from the list using keyboard shortcuts or by clicking the "X" button.'
-  ]);
+  showAppInstructions();
   showFlaschardContainer();
 
   if(DEFAULT_VISIBLE_COLUMN === 'right') {
@@ -369,12 +367,9 @@ function shuffle(array) {
   return array;
 }
 
-function setInstructions(instructions) {
-  $('#user-guide #instructions').empty();
-  $('#user-guide #instructions').append("<ul />");
-  instructions.forEach(function(text) {
-    $('#user-guide #instructions ul').append(`<li>${text}</li>`)
-  });
+function showAppInstructions() {
+  $('#user-guide #start-instructions').hide();
+  $('#user-guide #app-instructions').show();
 }
 
 function showKeyGuide() {
@@ -427,4 +422,12 @@ function setTheme(theme) {
   } else {
     $("#btn-toggle-theme").text('Switch to Light Theme');
   }
+}
+
+function showGuide() {
+  $('#user-guide').show();
+}
+
+function hideGuide() {
+  $('#user-guide').hide();
 }
