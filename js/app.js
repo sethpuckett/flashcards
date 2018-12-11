@@ -1,29 +1,42 @@
 var decks = [];
 
-$(document).ready(function () {
-
+document.addEventListener("DOMContentLoaded", function() {
   setTheme(DEFAULT_THEME);
   Tabletop.init({
     key: TOPIC_SPREADSHEET_KEY,
     callback: loadAllDecks
   });
 
-  $("#btn-hide-all").on('click', hideAll);
-  $("#btn-show-all").on('click', showAll);
-  $("#btn-show-left").on('click', showLeftColumn);
-  $("#btn-show-right").on('click', showRightColumn);
-  $("#card-table").on('click', '.card', toggleCard);
-  $("#card-table").on('click', ".btn-remove", removeRow);
-  $("#card-table").on('click', ".btn-unremove", unremoveRow);
-  $("#btn-show-deck-notes").on('click', showDeckNotes);
-  $('#btn-toggle-theme').on('click', toggleTheme);
-  $('#btn-hide-guide').on('click', hideGuide);
+  sel("#btn-hide-all").addEventListener('click', hideAll);
+  sel("#btn-show-all").addEventListener('click', showAll);
+  sel("#btn-show-left").addEventListener('click', showLeftColumn);
+  sel("#btn-show-right").addEventListener('click', showRightColumn);
+  addDelegatedEventListener("#card-table", 'click', '.card', toggleCard);
+  addDelegatedEventListener("#card-table", 'click', '.btn-remove', removeRow);
+  addDelegatedEventListener("#card-table", 'click', '.btn-unremove', unremoveRow);
+  sel("#btn-show-deck-notes").addEventListener('click', showDeckNotes);
+  sel('#btn-toggle-theme').addEventListener('click', toggleTheme);
+  sel('#btn-hide-guide').addEventListener('click', hideGuide);
+  sel('#btn-load-deck').addEventListener('click', deckSelected);
+  sel('#btn-shuffle').addEventListener('click', shuffleAndMoveToTop);
 
-  $('#btn-load-deck').on('click', deckSelected);
-  $('#btn-shuffle').on('click', shuffleAndMoveToTop);
-
-  $(document).keypress(handleKey);
+  document.addEventListener('keypress', handleKey);
 });
+
+function addDelegatedEventListener(selector, eventType, delegatedSelector, callback) {
+  sel(selector).addEventListener(eventType, function(event) {
+    var el = event.target;
+    for (;;) {
+      if(el.matches(delegatedSelector)) {
+        return callback.apply(el);
+      } else if (el.parentElement != null) {
+        el = el.parentElement;
+      } else {
+        break;
+      }
+    }
+  });
+}
 
 function handleKey(e) {
   switch(e.key) {
@@ -430,4 +443,8 @@ function showGuide() {
 
 function hideGuide() {
   $('#user-guide').hide();
+}
+
+function sel(query) {
+  return document.querySelector(query);
 }
