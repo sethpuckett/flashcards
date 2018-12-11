@@ -28,13 +28,14 @@ function addDelegatedEventListener(selector, eventType, delegatedSelector, callb
     var el = event.target;
     for (;;) {
       if(el.matches(delegatedSelector)) {
-        return callback.apply(el);
+        return callback.apply(el, [event]);
       } else if (el.parentElement != null) {
         el = el.parentElement;
       } else {
         break;
       }
     }
+    event.preventDefault();
   });
 }
 
@@ -83,37 +84,37 @@ function toggleSelectedLeft() {
   row = getSelectedRow();
   if (row == null) return;
 
-  toggleCard.call($(row).find('.left')[0]);
+  toggleCard.call(row.querySelector('.left'));
 }
 
 function toggleSelectedRight() {
   row = getSelectedRow();
   if (row == null) return;
 
-  toggleCard.call($(row).find('.right')[0]);
+  toggleCard.call(row.querySelector('.right'));
 }
 
 function toggleSelectedNotes() {
   row = getSelectedRow();
   if (row == null) return;
 
-  toggleCard.call($(row).find('.notes')[0]);
+  toggleCard.call(row.querySelector('.notes'));
 }
 
 function removeAndSelectNext() {
   currentRow = getSelectedRow();
 
   if (currentRow != null) {
-    removeRow.call($(currentRow).find('.btn-remove')[0]);
+    removeRow.call(currentRow.querySelector('.btn-remove'));
   }
 
   scrollToSelectedRow();
 }
 
 function undoLastRemove() {
-  row = $('#card-table > .body.removed > .table-row:last-child')[0];
+  row = sel('#card-table > .body.removed > .table-row:last-child');
   if (row == null) return;
-  unremoveRow.call($(row).find('.btn-unremove')[0], null, getSelectedRow());
+  unremoveRow.call(row.querySelector('.btn-unremove'), null, getSelectedRow());
   selectPreviousRow();
 }
 
@@ -127,13 +128,13 @@ function selectNextRow() {
   row = getSelectedRow();
 
   if (row == null) {
-    var firstRow = $('#card-table > .body.active').children()[0];
-    $(firstRow).addClass('selected');
+    var firstRow = sel('#card-table > .body.active').children[0];
+    sel(firstRow).classList.add('selected');
   } else {
-    var nextRow = $(row).next()[0];
+    var nextRow = row.nextElementSibling;
     if (nextRow != null) {
-      $(row).removeClass('selected');
-      $(nextRow).addClass('selected');
+      row.classList.remove('selected');
+      nextRow.classList.add('selected');
     }
   }
 
@@ -141,14 +142,17 @@ function selectNextRow() {
 }
 
 function selectFirstRow() {
-  $('.table-row').removeClass('selected');
-  var firstRow = $('#card-table > .body.active').children()[0];
-  $(firstRow).addClass('selected');
+  rows = selAll('.table-row');
+  rows.forEach(function(row) {
+    row.classList.remove('selected');
+  });
+  var firstRow = sel('#card-table > .body.active').children[0];
+  firstRow.classList.add('selected');
   scrollToSelectedRow();
 }
 
 function selectRow() {
-  row = $(this).parents('.table-row')[0];
+  row = findParent(this, '.table-row');
   $('.table-row').removeClass('selected');
   $(row).addClass('selected');
 }
@@ -157,13 +161,13 @@ function selectPreviousRow() {
   row = getSelectedRow();
 
   if (row == null) {
-    var firstRow = $('#card-table > .body.active').children()[0];
-    $(firstRow).addClass('selected');
+    var firstRow = sel('#card-table > .body.active').children[0];
+    firstRow.classList.add('selected');
   } else {
-    var prevRow = $(row).prev()[0];
+    var prevRow = row.previousElementSibling;
     if (prevRow != null) {
-      $(row).removeClass('selected');
-      $(prevRow).addClass('selected');
+      row.classList.remove('selected');
+      prevRow.classList.add('selected');
     }
   }
 
@@ -171,7 +175,7 @@ function selectPreviousRow() {
 }
 
 function getSelectedRow() {
-  rows = $('#card-table > .body.active').find('.selected');
+  rows = sel('#card-table > .body.active').querySelectorAll('.selected');
   if (rows.length > 0) {
     return rows[0];
   }
@@ -205,13 +209,13 @@ function loadAllDecks(data, tabletop) {
 
     decks.push({ 'name': sheetName, 'notes': notes, 'cards': cards });
 
-    var option = `<option value='${sheetName}'>${sheetName}</option>`;
-    $('#sel-deck').append(option);
+    sel('#sel-deck').add(new Option(sheetName, sheetName));
   });
 }
 
 function deckSelected() {
-  deckName = $('#sel-deck').find(':selected').val();
+  dropdown = sel('#sel-deck');
+  deckName = dropdown.options[dropdown.selectedIndex].value;
   loadDeck(deckName);
 }
 
@@ -223,23 +227,23 @@ function loadDeck(deckName) {
     return;
   }
 
-  $('#card-table > .body.active').empty();
-  $('#card-table > .body.removed').empty();
+  sel('#card-table > .body.active').innerHTML = '';
+  sel('#card-table > .body.removed').innerHTML = '';
 
   var left = deck.cards.columnNames[0];
   var right = deck.cards.columnNames[1];
   var title = deck.name;
 
-  $('#header-title').text(title);
-  $('#card-header-left').text(left);
-  $('#card-header-right').text(right);
-  $('#btn-show-left').text(`Show ${left}`);
-  $('#btn-show-right').text(`Show ${right}`);
+  sel('#header-title').textContent = title;
+  sel('#card-header-left').textContent = left;
+  sel('#card-header-right').textContent = right;
+  sel('#btn-show-left').textContent = `Show ${left}`;
+  sel('#btn-show-right').textContent = `Show ${right}`;
 
   if (deck.notes != null && deck.notes != '') {
     loadDeckNotes(deck.notes);
   } else {
-    $('#deck-notes-container').hide();
+    sel('#deck-notes-container').style.display = 'none';
   }
 
   deck.cards.elements.forEach(card => {
@@ -277,8 +281,8 @@ function loadDeck(deckName) {
         <button class='btn-remove'>x</button>
       </div>
     `;
-
-    $('#card-table > .body.active').append(row);
+    var rowElement = htmlToElement(row);
+    sel('#card-table > .body.active').appendChild(rowElement);
   });
 
   document.title = title;
@@ -299,39 +303,72 @@ function loadDeck(deckName) {
 }
 
 function hideAll() {
-  $('.card p').hide();
+  cards = selAll('.card p');
+  cards.forEach(function(card) {
+    card.style.display = 'none';
+  })
 }
 
 function showAll() {
-  $('.card p').show();
+  cards = selAll('.card p');
+  cards.forEach(function(card) {
+    card.style.display = '';
+  })
 }
 
 function showLeftColumn() {
-  $('.card.right p').hide()
-  $('.card.left p').show();
+  rightCards = selAll('.card.right p');
+  rightCards.forEach(function(rightCard) {
+    rightCard.style.display = 'none';
+  });
+
+  leftCards = selAll('.card.left p');
+  leftCards.forEach(function(leftCard) {
+    leftCard.style.display = '';
+  });
 }
 
 function showRightColumn() {
-  $('.card.left p').hide();
-  $('.card.right p').show();
+  rightCards = selAll('.card.right p');
+  rightCards.forEach(function(rightCard) {
+    rightCard.style.display = '';
+  });
+
+  leftCards = selAll('.card.left p');
+  leftCards.forEach(function(leftCard) {
+    leftCard.style.display = 'none';
+  });
 }
 
 function hideNotes() {
-  $('.card.notes p').hide();
+  noteCards = selAll('.card.notes p');
+  noteCards.forEach(function(noteCard) {
+    noteCard.style.display = 'none';
+  });
 }
 
 function toggleCard() {
-  $(this).find('p').toggle();
+  el = this.querySelector('p');
+  if (el.style.display == 'none') {
+    el.style.display = '';
+  } else {
+    el.style.display = 'none';
+  }
+
   selectRow.call(this);
 }
 
-function removeRow() {
+function removeRow(event) {
+  if (event != null &&event.handled) {
+    return;
+  }
+
   var selectedRow = getSelectedRow();
-  var removedRow =  $(this).parent()[0];
+  var removedRow =  this.parentElement;
 
   if (selectedRow == removedRow) {
     // if next row is not available it means final row is selected. Keep selection on final item
-    var nextRow = $(row).next()[0];
+    var nextRow = row.nextElementSibling;
     if (nextRow != null) {
       selectNextRow();
     } else {
@@ -339,30 +376,44 @@ function removeRow() {
     }
   }
 
-  $(this).text('^');
-  $(this).removeClass('btn-remove');
-  $(this).addClass('btn-unremove');
-  $(removedRow).detach().appendTo('#card-table > .body.removed');
+  this.textContent = '^';
+  this.classList.remove('btn-remove');
+  this.classList.add('btn-unremove');
+  removeElement(removedRow);
+  sel('#card-table > .body.removed').appendChild(removedRow);
+  if (event != null) {
+    event.handled = true;
+  }
 }
 
-function unremoveRow(_event, afterSibling) {
-  $(this).text('x');
-  $(this).removeClass('btn-unremove');
-  $(this).addClass('btn-remove');
+function unremoveRow(event, afterSibling) {
+  if (event != null && event.handled) {
+    return;
+  }
+
+  this.textContent = 'x';
+  this.classList.remove('btn-unremove');
+  this.classList.add('btn-remove');
   if (afterSibling == null) {
-    $(this).parent().detach().appendTo('#card-table > .body.active');
+    removeElement(this.parentElement)
+    sel('#card-table > .body.active').appendChild(this.parentElement);
   } else {
-    var row = $(this).parent();
-    $(row).detach();
-    $(row).insertBefore(afterSibling);
+    var row = this.parentElement;
+    removeElement(row);
+    sel('#card-table > .body.active').insertBefore(row, afterSibling);
+  }
+  if (event != null) {
+    event.handled = true;
   }
 }
 
 function shuffleDeck() {
-  cards = $('#card-table > .body.active').children();
+  cards = Array.from(sel('#card-table > .body.active').children).slice(0);
   shuffle(cards);
-  $('#card-table > .body.active').empty();
-  $('#card-table > .body.active').append(cards);
+  sel('#card-table > .body.active').innerHTML = '';
+  cards.forEach(function(card) {
+    sel('#card-table > .body.active').appendChild(card);
+  });
 }
 
 function shuffle(array) {
@@ -381,40 +432,40 @@ function shuffle(array) {
 }
 
 function showAppInstructions() {
-  $('#user-guide #start-instructions').hide();
-  $('#user-guide #app-instructions').show();
+  sel('#user-guide #start-instructions').style.display = 'none';
+  sel('#user-guide #app-instructions').style.display = 'block';
 }
 
 function showKeyGuide() {
-  $('#user-guide #keys-container').show();
+  sel('#user-guide #keys-container').style.display = 'block';
 }
 
 function showFlaschardContainer() {
-  $('#flashcard-container').show();
+  sel('#flashcard-container').style.display = 'block';
 }
 
 function loadDeckNotes(notes) {
-  $('#deck-notes-content').empty();
-  $('#deck-notes-content').append(`<p>${notes}</p>`);
-  $('#deck-notes-container').show();
+  sel('#deck-notes-content').innerHTML = '';
+  sel('#deck-notes-content').appendChild(htmlToElement(`<p>${notes}</p>`));
+  sel('#deck-notes-container').style.display = 'block';
 }
 
 function showDeckNotes() {
-  $('#btn-show-deck-notes').hide();
-  $('#deck-notes').show();
+  sel('#btn-show-deck-notes').style.display = 'none';
+  sel('#deck-notes').style.display = 'block';
 }
 
 function hideDeckNotes() {
-  $('#btn-show-deck-notes').show();
-  $('#deck-notes').hide();
+  sel('#btn-show-deck-notes').style.display = 'inline-block';
+  sel('#deck-notes').style.display = 'none';
 }
 
 function showCardButtons() {
-  $('#card-buttons').show();
+  sel('#card-buttons').style.display = 'block';
 }
 
 function toggleTheme() {
-  if ($('html').hasClass('light')) {
+  if (sel('html').classList.contains('light')) {
     setTheme('dark');
   } else {
     setTheme('light')
@@ -422,29 +473,60 @@ function toggleTheme() {
 }
 
 function setTheme(theme) {
-  $("html").removeClass('light');
-  $("body").removeClass('light');
-  $("html").removeClass('dark');
-  $("body").removeClass('dark');
+  sel("html").classList.remove('light');
+  sel("body").classList.remove('light');
+  sel("html").classList.remove('dark');
+  sel("body").classList.remove('dark');
 
-  $("html").addClass(theme);
-  $("body").addClass(theme);
+  sel("html").classList.add(theme);
+  sel("body").classList.add(theme);
 
   if (theme == 'light') {
-    $("#btn-toggle-theme").text('Switch to Dark Theme');
+    sel("#btn-toggle-theme").textContent = 'Switch to Dark Theme';
   } else {
-    $("#btn-toggle-theme").text('Switch to Light Theme');
+    sel("#btn-toggle-theme").textContent = 'Switch to Light Theme';
   }
 }
 
 function showGuide() {
-  $('#user-guide').show();
+  sel('#user-guide').style.display = ''
 }
 
 function hideGuide() {
-  $('#user-guide').hide();
+  sel('#user-guide').style.display = 'none';
 }
 
 function sel(query) {
   return document.querySelector(query);
+}
+
+function selAll(query) {
+  return document.querySelectorAll(query);
+}
+
+function findParent(element, selector) {
+  result = null;
+  parent = element.parentElement;
+  for (;;) {
+    if (parent.matches(selector)) {
+      result = parent;
+      break;
+    } else if (parent.parentElement != null) {
+      parent = parent.parentElement;
+    } else {
+      break;
+    }
+  }
+  return result;
+}
+
+function htmlToElement(html) {
+  var template = document.createElement('template');
+  html = html.trim();
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
+
+function removeElement(element) {
+  element.parentNode.removeChild(element);
 }
