@@ -108,6 +108,14 @@ footer {
   font-size: 32px;
 }
 
+.card.card-small {
+  font-size: 24px;
+}
+
+.card.card-v-small {
+  font-size: 18px;
+}
+
 .card.notes {
   text-align: left;
   font-size: 13px;

@@ -236,14 +236,29 @@ function loadDeck(deckName) {
       notesEntry = card['Notes'];
     }
 
+    leftSizeClass = '';
+    rightSizeClass = '';
+
+    if (leftEntry.length > 40) {
+      leftSizeClass = 'card-v-small';
+    } else if (leftEntry.length > 20) {
+      leftSizeClass = 'card-small';
+    }
+
+    if (rightEntry.length > 40) {
+      rightSizeClass = 'card-v-small';
+    } else if (rightEntry.length > 20) {
+      rightSizeClass = 'card-small';
+    }
+
     notesDiv = notesEntry != null && notesEntry != '' ?
       `<div class='card-column card notes'><p>${notesEntry}</p></div>` :
       `<div class='card-column card notes no-content'><p></p></div>`;
 
     var row = `
       <div class='table-row'>
-        <div class='card-column card left'><p>${leftEntry}</p></div>
-        <div class='card-column card right'><p>${rightEntry}</p></div>
+        <div class='card-column card left ${leftSizeClass}'><p>${leftEntry}</p></div>
+        <div class='card-column card right ${rightSizeClass}'><p>${rightEntry}</p></div>
         ${notesDiv}
         <button class='btn-remove'>x</button>
       </div>
