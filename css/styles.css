@@ -98,6 +98,7 @@ footer {
   margin: 1%;
   display: inline-flex;
   padding: 1%;
+  overflow: scroll;
 }
 
 .card p {
@@ -119,7 +120,6 @@ footer {
 .card.notes {
   text-align: left;
   font-size: 13px;
-  overflow: scroll;
 }
 
 .card.notes p {
