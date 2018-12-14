@@ -38,7 +38,7 @@ function loadSpreadsheet(key) {
   }
 
   sel("#load-key-container").style.display = 'none';
-  sel("#start-instructions").textContent = "Loading spreadsheet...";
+  sel("#start-instructions").textContent = "Loading decks...";
   if (key != getKeyFromQueryString()) {
     setKeyInQueryString(key);
   }
