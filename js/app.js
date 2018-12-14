@@ -23,22 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener('keypress', handleKey);
 });
 
-function addDelegatedEventListener(selector, eventType, delegatedSelector, callback) {
-  sel(selector).addEventListener(eventType, function(event) {
-    var el = event.target;
-    for (;;) {
-      if(el.matches(delegatedSelector)) {
-        return callback.apply(el, [event]);
-      } else if (el.parentElement != null) {
-        el = el.parentElement;
-      } else {
-        break;
-      }
-    }
-    event.preventDefault();
-  });
-}
-
 function handleKey(e) {
   switch(e.key) {
     case 'a':
@@ -529,4 +513,20 @@ function htmlToElement(html) {
 
 function removeElement(element) {
   element.parentNode.removeChild(element);
+}
+
+function addDelegatedEventListener(selector, eventType, delegatedSelector, callback) {
+  sel(selector).addEventListener(eventType, function(event) {
+    var el = event.target;
+    for (;;) {
+      if(el.matches(delegatedSelector)) {
+        return callback.apply(el, [event]);
+      } else if (el.parentElement != null) {
+        el = el.parentElement;
+      } else {
+        break;
+      }
+    }
+    event.preventDefault();
+  });
 }
