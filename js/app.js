@@ -2,11 +2,10 @@ var decks = [];
 
 document.addEventListener("DOMContentLoaded", function() {
   setTheme(DEFAULT_THEME);
-  Tabletop.init({
-    key: TOPIC_SPREADSHEET_KEY,
-    callback: loadAllDecks
-  });
 
+  sel("#btn-load-spreadsheet").addEventListener('click', onClickLoadSpreadsheet);
+  sel('#txt-spreadsheet-key').addEventListener('keyup', handleLoadSpreadsheetKeyUp);
+  sel("#btn-load-new-key").addEventListener('click', loadNewSpreadsheetKey);
   sel("#btn-hide-all").addEventListener('click', hideAll);
   sel("#btn-show-all").addEventListener('click', showAll);
   sel("#btn-show-left").addEventListener('click', showLeftColumn);
@@ -19,9 +18,49 @@ document.addEventListener("DOMContentLoaded", function() {
   sel('#btn-hide-guide').addEventListener('click', hideGuide);
   sel('#btn-load-deck').addEventListener('click', deckSelected);
   sel('#btn-shuffle').addEventListener('click', shuffleAndMoveToTop);
-
   document.addEventListener('keypress', handleKey);
+
+  key = getKeyFromQueryString();
+  if (key != null) {
+    loadSpreadsheet(key);
+  }
 });
+
+function onClickLoadSpreadsheet() {
+  queryValue = sel("#txt-spreadsheet-key").value.trim();
+  key = getKeyFromQueryValue(queryValue);
+  loadSpreadsheet(key);
+}
+
+function loadSpreadsheet(key) {
+  if (key == '') {
+    return;
+  }
+
+  sel("#load-key-container").style.display = 'none';
+  sel("#start-instructions").textContent = "Loading spreadsheet...";
+  if (key != getKeyFromQueryString()) {
+    setKeyInQueryString(key);
+  }
+
+  Tabletop.init({
+    key: key,
+    callback: loadAllDecks
+  });
+}
+
+function loadNewSpreadsheetKey() {
+  sel("#load-new-key-container").style.display = 'none';
+  sel("#load-key-container").style.display = 'block';
+  sel("#start-instructions").innerHTML = "Enter a public spreadsheet key above. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the instructions</a> for more info.";
+  sel("#btn-hide-guide").style.display = 'none';
+}
+
+function handleLoadSpreadsheetKeyUp(e) {
+  if (e.keyCode == 13) {
+    onClickLoadSpreadsheet();
+  }
+}
 
 function handleKey(e) {
   switch(e.key) {
@@ -195,6 +234,11 @@ function loadAllDecks(data, tabletop) {
 
     sel('#sel-deck').add(new Option(sheetName, sheetName));
   });
+
+  sel("#select-deck-container").style.display = 'block';
+  sel("#load-new-key-container").style.display = 'block';
+  sel("#start-instructions").textContent = "Pick a deck and press 'Load Deck' to start."
+  sel("#txt-spreadsheet-key").value = '';
 }
 
 function deckSelected() {
@@ -223,6 +267,9 @@ function loadDeck(deckName) {
   sel('#card-header-right').textContent = right;
   sel('#btn-show-left').textContent = `Show ${left}`;
   sel('#btn-show-right').textContent = `Show ${right}`;
+  sel("#btn-hide-guide").style.display = 'inline-block';
+  sel("#load-key-container").style.display = 'none';
+  sel("#load-new-key-container").style.display = 'block';
 
   if (deck.notes != null && deck.notes != '') {
     loadDeckNotes(deck.notes);
@@ -529,4 +576,45 @@ function addDelegatedEventListener(selector, eventType, delegatedSelector, callb
     }
     event.preventDefault();
   });
+}
+
+function getKeyFromQueryString() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var keyParam = urlParams.get('k');
+  if (keyParam == null || keyParam == '') {
+    keyParam = urlParams.get('key');
+  }
+  return keyParam;
+}
+
+function setKeyInQueryString(key) {
+  var urlParams = new URLSearchParams(window.location.search);
+  urlParams.delete('k');
+  urlParams.delete('key');
+  urlParams.append('k', key);
+  window.location.search = urlParams.toString();
+}
+
+function getKeyFromQueryValue(queryValue) {
+  // Sample:
+  // https://docs.google.com/spreadsheets/d/159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU/edit#gid=0
+
+  // if provided value is not a url it is already a key
+  if (queryValue.indexOf('/') == -1) {
+    return queryValue;
+  }
+
+  url = new URL(queryValue);
+  urlComponents = url.pathname.split('/');
+
+  // hack to get the key from the url, even if it contains additional path components (e.g. 'edit')
+  key = urlComponents.pop();
+  while (key.length < 20) {
+    key = urlComponents.pop();
+    if (urlComponents.length == 0) {
+      break;
+    }
+  }
+
+  return key;
 }

@@ -19,9 +19,21 @@
     </div>
     <div id='content'>
       <div id='control-container'>
-        <select id='sel-deck'></select>
-        <div id="load-deck-container">
-          <button id='btn-load-deck'>Load Deck</button>
+        <div id="load-key-container">
+          <input id="txt-spreadsheet-key">
+          <button id="btn-load-spreadsheet">Load Spreadsheet</button>
+          <div id="load-spreadsheet-instructions">
+            Enter the URL or key for a public Google Spreadsheet
+          </div>
+        </div>
+        <div id="load-new-key-container">
+          <button id="btn-load-new-key">Load a New Spreadsheet</button>
+        </div>
+        <div id="select-deck-container">
+          <select id='sel-deck'></select>
+          <div id="load-deck-container">
+            <button id='btn-load-deck'>Load Deck</button>
+          </div>
         </div>
         <div id="card-buttons">
           <button id='btn-show-left'>Show Left Column</button>
@@ -33,7 +45,7 @@
       </div>
       <div id="user-guide">
         <button id="btn-hide-guide">Close</button>
-        <div class="instructions" id="start-instructions">Pick a deck and press 'Load Deck' to start.</div>
+        <div class="instructions" id="start-instructions">Enter a public spreadsheet key above. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the instructions</a> for more info.</div>
         <div class="instructions" id="app-instructions">
           <ul>
             <li>The currently selected row is outlined in blue. Use keyboard shortcuts to switch.</li>

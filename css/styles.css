@@ -154,6 +154,32 @@ button.btn-remove, button.btn-unremove {
   height: 2em;
 }
 
+#load-key-container #txt-spreadsheet-key {
+  width: 20em;
+}
+
+#load-key-container {
+  padding: 2em;
+}
+
+#load-key-container #load-spreadsheet-instructions {
+  font-size: .75em;
+  margin-top: .5em;
+}
+
+#select-deck-container {
+  display: none;
+}
+
+#load-new-key-container {
+  display: none;
+}
+
+#load-new-key-container #btn-load-new-key {
+  height: 1.5em;
+  font-size: .75em;
+}
+
 #load-deck-container {
   display: inline-block;
   padding: 1em;
@@ -191,7 +217,7 @@ button.btn-remove, button.btn-unremove {
 
 #user-guide #btn-hide-guide {
   position: absolute;
-  display: inline-block;
+  display: none;
   right: 10px;
   top: 10px;
 }
