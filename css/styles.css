@@ -126,8 +126,11 @@ footer {
   margin: 1%;
 }
 
-.card.notes.no-content {
-  border: 1px solid gray;
+.card.notes.note-content {
+  background-image: url('../img/info.png');
+  background-repeat: no-repeat;
+  background-size: 32px;
+  background-position: top right;
 }
 
 .divider-text {

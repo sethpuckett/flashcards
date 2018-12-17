@@ -164,11 +164,15 @@ function selectNextRow() {
   scrollToSelectedRow();
 }
 
-function selectFirstRow() {
+function unselectAll() {
   rows = selAll('.table-row');
   rows.forEach(function(row) {
     row.classList.remove('selected');
   });
+}
+
+function selectFirstRow() {
+  unselectAll();
   var firstRow = sel('#card-table > .body.active').children[0];
   firstRow.classList.add('selected');
   scrollToSelectedRow();
@@ -176,8 +180,8 @@ function selectFirstRow() {
 
 function selectRow() {
   row = findParent(this, '.table-row');
-  $('.table-row').removeClass('selected');
-  $(row).addClass('selected');
+  unselectAll();
+  row.classList.add('selected');
 }
 
 function selectPreviousRow() {
@@ -301,8 +305,8 @@ function loadDeck(deckName) {
     }
 
     notesDiv = notesEntry != null && notesEntry != '' ?
-      `<div class='card-column card notes'><p>${notesEntry}</p></div>` :
-      `<div class='card-column card notes no-content'><p></p></div>`;
+      `<div class='card-column card notes note-content'><p>${notesEntry}</p></div>` :
+      `<div class='card-column card notes'><p></p></div>`;
 
     var row = `
       <div class='table-row'>
