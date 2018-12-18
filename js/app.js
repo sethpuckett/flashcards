@@ -38,7 +38,7 @@ function loadSpreadsheet(key) {
   }
 
   sel("#load-key-container").style.display = 'none';
-  sel("#start-instructions").textContent = "Loading decks...";
+  sel("#start-instructions").textContent = "Loading deck(s)...";
   if (key != getKeyFromQueryString()) {
     setKeyInQueryString(key);
   }
@@ -221,16 +221,24 @@ function scrollToSelectedRow() {
 
 function loadAllDecks(data, tabletop) {
   decks = [];
-  var allNotes = tabletop.sheets('notes').all();
+  var notesSheet = tabletop.sheets('notes');
+  var allNotes = null;
+  if (notesSheet != null) {
+    allNotes = notesSheet.all();
+  }
 
   tabletop.foundSheetNames.forEach(function(sheetName) {
     if (sheetName === 'notes') {
       return;
     }
 
-    var noteRow = allNotes.find(function(noteEntry) {
-      return noteEntry.name === sheetName;
-    });
+    var noteRow = null;
+    if (allNotes != null) {
+      noteRow = allNotes.find(function(noteEntry) {
+        return noteEntry.name === sheetName;
+      });
+    }
+
     notes = noteRow != null ? noteRow.notes : '';
     cards = tabletop.sheets(sheetName)
 
@@ -239,9 +247,15 @@ function loadAllDecks(data, tabletop) {
     sel('#sel-deck').add(new Option(sheetName, sheetName));
   });
 
-  sel("#select-deck-container").style.display = 'block';
+  if (decks.length == 1) {
+    sel('#select-deck-container').style.display = 'none';
+    loadDeck(decks[0].name);
+  } else {
+    sel("#select-deck-container").style.display = 'block';
+    sel("#start-instructions").textContent = "Pick a deck and press 'Load Deck' to start."
+  }
+
   sel("#load-new-key-container").style.display = 'block';
-  sel("#start-instructions").textContent = "Pick a deck and press 'Load Deck' to start."
   sel("#txt-spreadsheet-key").value = '';
 }
 
