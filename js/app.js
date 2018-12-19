@@ -45,14 +45,21 @@ function loadSpreadsheet(key) {
 
   Tabletop.init({
     key: key,
-    callback: loadAllDecks
+    callback: loadAllDecks,
+    errorCallback: handleInitError
   });
+}
+
+function handleInitError() {
+  sel("#load-key-container").style.display = 'block';
+  sel("#txt-spreadsheet-key").value = getKeyFromQueryString();
+  sel("#start-instructions").innerHTML = "There was an error loading your spreadsheet. Please double-check your key and ensure the spreadsheet is published to the web with sharing set to 'Anyone with the link'. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the user guide</a> for more info."
 }
 
 function loadNewSpreadsheetKey() {
   sel("#load-new-key-container").style.display = 'none';
   sel("#load-key-container").style.display = 'block';
-  sel("#start-instructions").innerHTML = "Enter a public spreadsheet key above. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the instructions</a> for more info.";
+  sel("#start-instructions").innerHTML = "Enter a public spreadsheet key above. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the user guide</a> for more info.";
   sel("#btn-hide-guide").style.display = 'none';
 }
 

@@ -65,6 +65,7 @@
     }
 
     this.callback = options.callback;
+    this.errorCallback = options.errorCallback;
     this.wanted = options.wanted || [];
     this.key = options.key;
     this.simpleSheet = !!options.simpleSheet;
@@ -162,7 +163,7 @@
       if (typeof(callback) !== 'undefined') {
         this.callback = callback;
       }
-      this.requestData(this.baseJsonPath, this.loadSheets);
+      this.requestData(this.baseJsonPath, this.loadSheets, this.errorCallback);
     },
 
     /*
@@ -170,7 +171,7 @@
 
       In browser it will use JSON-P, in node it will use request()
     */
-    requestData: function(path, callback) {
+    requestData: function(path, callback, errorCallback) {
       this.log('Requesting', path);
 
       if (inNodeJS) {
@@ -180,7 +181,7 @@
         //You must have your server on HTTPS to talk to Google, or it'll fall back on injection
         var protocol = this.endpoint.split('//').shift() || 'http';
         if (supportsCORS && (!inLegacyIE || protocol === location.protocol)) {
-          this.xhrFetch(path, callback);
+          this.xhrFetch(path, callback, errorCallback);
         } else {
           this.injectScript(path, callback);
         }
@@ -190,7 +191,7 @@
     /*
       Use Cross-Origin XMLHttpRequest to get the data in browsers that support it.
     */
-    xhrFetch: function(path, callback) {
+    xhrFetch: function(path, callback, errorCallback) {
       //support IE8's separate cross-domain object
       var xhr = inLegacyIE ? new XDomainRequest() : new XMLHttpRequest();
       xhr.open('GET', this.endpoint + path);
@@ -204,6 +205,11 @@
         }
         callback.call(self, json);
       };
+      xhr.onerror = function(e) {
+        if (typeof errorCallback !== 'undefined' ) {
+          errorCallback(e);
+        }
+      }
       xhr.send();
     },
 
