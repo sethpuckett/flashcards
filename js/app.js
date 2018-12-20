@@ -51,9 +51,14 @@ function loadSpreadsheet(key) {
 }
 
 function handleInitError() {
+  handleError("There was an error loading your spreadsheet. Please double-check your key and ensure the spreadsheet is published to the web with sharing set to 'Anyone with the link'. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the user guide</a> for more info.");
+}
+
+function handleError(message) {
+  showStartInstructions();
   sel("#load-key-container").style.display = 'block';
   sel("#txt-spreadsheet-key").value = getKeyFromQueryString();
-  sel("#start-instructions").innerHTML = "There was an error loading your spreadsheet. Please double-check your key and ensure the spreadsheet is published to the web with sharing set to 'Anyone with the link'. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the user guide</a> for more info."
+  sel("#start-instructions").innerHTML = message;
 }
 
 function loadNewSpreadsheetKey() {
@@ -234,6 +239,8 @@ function loadAllDecks(data, tabletop) {
     allNotes = notesSheet.all();
   }
 
+  var errorSheets = [];
+
   tabletop.foundSheetNames.forEach(function(sheetName) {
     if (sheetName === 'notes') {
       return;
@@ -249,10 +256,23 @@ function loadAllDecks(data, tabletop) {
     notes = noteRow != null ? noteRow.notes : '';
     cards = tabletop.sheets(sheetName)
 
+    columnCount = cards.columnNames.length;
+    hasNotes = cards.columnNames.includes('notes') || cards.columnNames.includes('Notes')
+    if (!(columnCount == 2 && !hasNotes) && !(columnCount == 3 && hasNotes)) {
+      errorSheets.push(sheetName);
+      return;
+    }
+
     decks.push({ 'name': sheetName, 'notes': notes, 'cards': cards });
 
     sel('#sel-deck').add(new Option(sheetName, sheetName));
   });
+
+  if (errorSheets.length > 0) {
+    listString = errorSheets.join(', ');
+    handleError(`Unable to load flashcards. The following sheets have errors: ${listString}. Sheets must have exactly 2 columns and an optional 'notes' column. See <a href='https://github.com/sethpuckett/flashcards' target='_blank'>the user guide</a> for more info.`)
+    return;
+  }
 
   if (decks.length == 1) {
     sel('#select-deck-container').style.display = 'none';
@@ -277,11 +297,11 @@ function loadDeck(deckName) {
     return d.name === deckName;
   });
   if (deck == null) {
+    handleError(`Unable to load deck '${deckName}'`);
     return;
   }
 
-  sel('#card-table > .body.active').innerHTML = '';
-  sel('#card-table > .body.removed').innerHTML = '';
+  removeAllCards();
 
   var left = deck.cards.columnNames[0];
   var right = deck.cards.columnNames[1];
@@ -356,6 +376,11 @@ function loadDeck(deckName) {
   } else {
     showLeftColumn();
   }
+}
+
+function removeAllCards() {
+  sel('#card-table > .body.active').innerHTML = '';
+  sel('#card-table > .body.removed').innerHTML = '';
 }
 
 function hideAll() {
@@ -487,12 +512,22 @@ function shuffle(array) {
   return array;
 }
 
+function showStartInstructions() {
+  sel('#user-guide #start-instructions').style.display = 'block';
+  sel('#user-guide #app-instructions').style.display = 'none';
+  hideKeyGuide();
+}
+
 function showAppInstructions() {
   sel('#user-guide #start-instructions').style.display = 'none';
   sel('#user-guide #app-instructions').style.display = 'block';
 }
 
 function showKeyGuide() {
+  sel('#user-guide #keys-container').style.display = 'block';
+}
+
+function hideKeyGuide() {
   sel('#user-guide #keys-container').style.display = 'block';
 }
 
@@ -521,7 +556,7 @@ function showCardButtons() {
 }
 
 function toggleTheme() {
-  if (sel('html').classList.contains('light')) {
+  if (sel('html').classList.includes('light')) {
     setTheme('dark');
   } else {
     setTheme('light')
