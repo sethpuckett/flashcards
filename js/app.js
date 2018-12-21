@@ -2,6 +2,9 @@ var decks = [];
 
 document.addEventListener("DOMContentLoaded", function() {
   setTheme(DEFAULT_THEME);
+  if (!spreadsheetChangeEnabled()) {
+    disableSpreadsheetChange();
+  }
 
   sel("#btn-load-spreadsheet").addEventListener('click', onClickLoadSpreadsheet);
   sel('#txt-spreadsheet-key').addEventListener('keyup', handleLoadSpreadsheetKeyUp);
@@ -23,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
   key = getKeyFromQueryString();
   if (key != null) {
     loadSpreadsheet(key);
+  } else if (DEFAULT_SPREADSHEET_KEY != null) {
+    loadSpreadsheet(DEFAULT_SPREADSHEET_KEY);
   }
 });
 
@@ -56,7 +61,9 @@ function handleInitError() {
 
 function handleError(message) {
   showStartInstructions();
-  sel("#load-key-container").style.display = 'block';
+  if (spreadsheetChangeEnabled()) {
+    sel("#load-key-container").style.display = 'block';
+  }
   sel("#txt-spreadsheet-key").value = getKeyFromQueryString();
   sel("#start-instructions").innerHTML = message;
 }
@@ -284,8 +291,10 @@ function loadAllDecks(data, tabletop) {
 
   sel('#header-title').textContent = tabletop.googleSheetName;
   document.title = tabletop.googleSheetName;
-  sel("#load-new-key-container").style.display = 'block';
-  sel("#txt-spreadsheet-key").value = '';
+  if (spreadsheetChangeEnabled()) {
+    sel("#load-new-key-container").style.display = 'block';
+    sel("#txt-spreadsheet-key").value = '';
+  }
 }
 
 function deckSelected() {
@@ -558,7 +567,7 @@ function showCardButtons() {
 }
 
 function toggleTheme() {
-  if (sel('html').classList.includes('light')) {
+  if (sel('html').classList.contains('light')) {
     setTheme('dark');
   } else {
     setTheme('light')
@@ -579,6 +588,15 @@ function setTheme(theme) {
   } else {
     sel("#btn-toggle-theme").textContent = 'Switch to Light Theme';
   }
+}
+
+function spreadsheetChangeEnabled() {
+  return ENABLE_SPREADSHEET_CHANGE == null || ENABLE_SPREADSHEET_CHANGE;
+}
+
+function disableSpreadsheetChange() {
+  sel("#load-key-container").style.display = "none";
+  sel("#load-new-key-container").style.display = "none";
 }
 
 function showGuide() {
