@@ -282,6 +282,8 @@ function loadAllDecks(data, tabletop) {
     sel("#start-instructions").textContent = "Pick a deck and press 'Load Deck' to start."
   }
 
+  sel('#header-title').textContent = tabletop.googleSheetName;
+  document.title = tabletop.googleSheetName;
   sel("#load-new-key-container").style.display = 'block';
   sel("#txt-spreadsheet-key").value = '';
 }
