@@ -104,7 +104,7 @@ function handleKey(e) {
     case 'r':
       selectNextRow();
       break;
-    case 'q':
+    case 'h':
       shuffleAndMoveToTop();
       break;
     case 'z':

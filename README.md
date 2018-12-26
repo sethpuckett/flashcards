@@ -6,7 +6,8 @@ My name is Seth and these are my flashcards. This application is designed to be 
 ## Table of Contents
 * **[Overview & Purpose](#overview--purpose)**
 * **[User Guide](#user-guide)**
-* **[Forking/Creating Your Own Flashcards](#forking--creating-your-own-flashcards)**
+* **[Creating Your Own Flashcards](#creating-your-own-flashcards)**
+* **[Configuring the Application](#configuring-the-application)**
 * **[Help](#help)**
 
 ## Overview & Purpose
@@ -25,7 +26,17 @@ This application is an attempt to solve these problems with the following featur
 
 ## User Guide
 
-When the app loads the first step is to select a deck from the dropdown list and click the `Load Deck` button. This will load all the cards in the deck. By default one column will be hidden and the other column will be visible.
+### Providing a spreadsheet
+
+Flashcard values are stored in Google Spreadsheets. Published spreadsheets have a key which can be used to load the flashcard values into the application. To load a spreadsheet copy its key into the input box and click `Load Spreadsheet`. If you're having trouble or if you would like more information about creating your own flashcards see the section "[Creating Your Own Flashcards](#creating-your-own-flashcards)". If you don't want to enter the spreadsheet key every time you can bookmark the application after you've loaded a spreadsheet, or configure the application to load a default spreadsheet on startup. There is more information about that in the section "[Configuring the Application](#configuring-the-application)".
+
+### Selecting a Deck
+
+Spreadsheets can contain mulitple decks of flashcards. If a spreadsheet contains only one deck it will be selected automatically when the spreadsheet is loaded. Otherwise you will need to select a deck and press `Load Deck` to begin. This will display all the cards in the deck. By default one column will be hidden and the other column will be visible.
+
+### Commands
+
+When a deck is loaded you can interact with the application via mouse, tap, or keyboard commands.
 
 There are several buttons available on the UI to interact with the deck:
 * **Show 'left'**: Reveal all cards in the left column (and hide the right)
@@ -35,7 +46,7 @@ There are several buttons available on the UI to interact with the deck:
 * **Shuffle Cards**: Shuffle the deck (non-ignored cards only) and move the selection to the first card
 * **Show Deck Notes**: Reveal any notes associated with the deck; this button is only visible if there are deck notes associated with the current deck
 
-Individual cards can be managed via the mouse:
+Individual cards can be managed via the mouse or tap:
 * Clicking a card will hide or reveal it
 * Clicking the '**X**' button will remove the row from the deck and send it to the list of 'Ignored' cards (at the bottom of the deck)
 * Clicking the '**^**' button for an ignored row will send it back into the deck
@@ -56,23 +67,9 @@ The fastest way to interact with the flashcards (once you get used to it) is via
 
 On the bottom-left of the screen is a **Switch Theme** button that allows you to switch between light and dark themes. This is purely cosmetic and has no effect on functionality.
 
-The app technically works in mobile & other small browsers and responds to touch commands, but it is really intended for use with large screens and a keyboard.
+## Creating Your Own Flashcards
 
-## Forking/Creating Your Own Flashcards
-
-Want to make your own flashcards or modify the app for your own use? Great!
-
-### Running the application
-
-Seth's Flashcards is designed to be simple, so there is no build step. Just open `index.html` in your favorite browser and you're ready to go.
-
-### Configuring the application
-
-There are a few configuration options available for Seth's Flashcards. These can be found in `js/config.js`. To make changes just update any of the available options and refresh the page. The most important option for creating your own set of flashcards is `TOPIC_SPREADSHEET_KEY`. More on that below.
-
-* **TOPIC_SPREADSHEET_KEY**: The key for the public, published Google Spreadsheet containing flashcard values
-* **DEFAULT_THEME**: Determines which theme should be loaded when the application starts, either `light` or `dark`
-* **DEFAULT_VISIBLE_COLUMN**: Determines which column should be visible and which should be hidden when the application starts, either `left` or `right`
+Want to make your own flashcards? Great! It's as simple as adding the values to a Google Spreadsheet and making the spreadsheet public.
 
 ### Setting up the spreadsheet
 
@@ -86,20 +83,36 @@ Seth's Flashcards reads the card values from Google Spreadsheets using `Tabletop
 
 4. You also have the ability to add `Deck Notes` that will appear at the top of the page when a new deck is loaded. This can be useful for describing the content of decks and providing links to additional resources. To add deck notes add a new sheet to your Google Sheet with the specially reserved name `notes`. This sheet needs 2 columns with the headings `name` and `notes`. Values in the `name` column must match the name of a sheet **exactly**. Values in the note column support html, so feel free to add links, line breaks, bold text, etc.
 **Example**:
-
 ![Creating deck notes in a spreadsheet](img/app-notes.png "Creatings deck notes in a spreadsheet")
 
 5. Publish your spreadsheet and make it public. Check out the [Getting Started section of the Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) for more detailed instructions on this part. The `tldr` steps are here:
     * Publish your spreadsheet to the web.
     * Share your spreadsheet with `anyone with the link`.
     * Copy the url from the `link to share` (or just the key value from the link).
-6. Within `js/config.js` set `TOPIC_SPREADSHEET_KEY` to the key or shareable link value copied from your Google Sheet.
+6. To test that everything is working correctly paste the key into the input field in the application and click `Load Spreadsheet`.
 
-And that's it! If everything is setup correctly when you load the page the dropdown menu should be populated with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
+And that's it! If everything is setup correctly then upon loading the spreadsheet the dropdown menu should populate with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
+
+## Configuring the application
+
+Feel free to clone or fork the application and modify it to your heart's content. Basic configuration can be managed via the `js/config.js` file.
+
+### Running the application
+
+Seth's Flashcards is designed to be simple, so there is no build step. Just open `index.html` in your favorite browser and you're ready to go.
+
+### Configuration Options
+
+Configuration options can be found in `js/config.js`. To make changes just update any of the available values and refresh the page.
+
+* **DEFAULT_SPREADSHEET_KEY**: Key for a public, published Google Spreadsheet containing flashcard values. If this value is present in your configuration then the spreadsheet will be loaded automatically upon application startup.
+* **ENABLE_SPREADSHEET_CHANGE**: Whether or not users can enter a new spreadsheet key. If this is set to `false` be sure you've provided a default spreadsheet key! This is useful for eliminating onscreen clutter if you only intend to use a single spreadsheet.
+* **DEFAULT_THEME**: Determines which theme should be loaded when the application starts, either `light` or `dark`
+* **DEFAULT_VISIBLE_COLUMN**: Determines which column should be visible and which should be hidden when the application starts, either `left` or `right`
 
 ## Help
 
-* Found a bug? Want a feature? Feel free to open an issue and/or create a PR. I want to keep this fast and simple, though, so nothing too fancy.
+* Found a bug? Want a feature? Feel free to open an issue and/or create a PR. Keep in mind this application needs to stay fast and simple.
 * Trying to make your own flashcards and something isn't working? Here are some tips:
   * Double check your spelling and your casing. If you're adding deck notes the sheet must be named `notes` and must have 2 columns with headings `name` and `notes`. The values in the `name` column must much the names of your other sheets **exactly**. Casing is important.
   * Did you publish your spreadsheet to the web **and** share it? You need to do both. Check the [Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) if you're not sure.
