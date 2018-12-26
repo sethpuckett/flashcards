@@ -46,7 +46,7 @@ The fastest way to interact with the flashcards (once you get used to it) is via
 * **D**: Hide or reveal the notes card in the selected row; same as clicking the card
 * **F**: Remove the selected row from the deck and send it to the list of 'Ignored' cards; same as clicking the '**X**' button
 * **G**: Send the last 'Ignored' row back into the deck; this is useful as an 'undo' operation when cards are accidentally ignored
-* **Q**: Shuffle the deck and move the selection to the first card; same as clicking the **Shuffle Cards** button
+* **H**: Shuffle the deck and move the selection to the first card; same as clicking the **Shuffle Cards** button
 * **E**: Change the selection to the previous row
 * **R**: Change the selection to the next row
 * **Z**: Show 'left' column only; same as clicking the **Show 'left'** button
