@@ -93,6 +93,9 @@ Seth's Flashcards reads the card values from Google Spreadsheets using `Tabletop
 
 And that's it! If everything is setup correctly then upon loading the spreadsheet the dropdown menu should populate with the names of the decks from your spreadsheet. Click `Load Deck` and you should be able to start interacting with your cards.
 
+### Additional Options
+You have the ability to include sheets in your Google Sheet that are *not* loaded as decks. This can be useful for decks that aren't ready yet or for development notes. To ignore a sheet change its name so that it begins with "**ignore-**" (e.g. "**ignore-Klingon Grammar Notes**").
+
 ## Configuring the application
 
 Feel free to clone or fork the application and modify it to your heart's content. Basic configuration can be managed via the `js/config.js` file.

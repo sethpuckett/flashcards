@@ -249,7 +249,7 @@ function loadAllDecks(data, tabletop) {
   var errorSheets = [];
 
   tabletop.foundSheetNames.forEach(function(sheetName) {
-    if (sheetName === 'notes') {
+    if (sheetName === 'notes' || sheetName.startsWith('ignore-')) {
       return;
     }
 
