@@ -43,13 +43,10 @@ footer {
   clear: both;
 }
 
-#mobile-disclaimer {
-  display: none;
-}
-
 #card-buttons {
   display: none;
-  padding: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 #content {
@@ -185,7 +182,6 @@ button.btn-remove, button.btn-unremove {
 
 #load-deck-container {
   display: inline-block;
-  padding: 1em;
 }
 
 #deck-notes-container {
@@ -207,6 +203,8 @@ button.btn-remove, button.btn-unremove {
 
 #control-container {
   margin-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 #user-guide {
@@ -297,14 +295,6 @@ a:visited {
 
   header h1 {
     font-size: 26px;
-  }
-
-  #mobile-disclaimer {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    margin-bottom: 1em;
   }
 
   #load-deck-container {
