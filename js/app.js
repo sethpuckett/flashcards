@@ -381,12 +381,12 @@ function loadDeck(deckName) {
   document.title = title;
   hideNotes();
   hideDeckNotes();
-  selectFirstRow();
   showKeyGuide();
   showGuide();
   showCardButtons();
   showAppInstructions();
   showFlaschardContainer();
+  selectFirstRow();
 
   if(DEFAULT_VISIBLE_COLUMN === 'right') {
     showRightColumn();
