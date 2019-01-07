@@ -241,7 +241,14 @@ function getSelectedRow() {
 function scrollToSelectedRow() {
   row = getSelectedRow();
   if (row == null) return;
-  row.scrollIntoView({ behavior: 'smooth' });
+
+  // show previous row as well, if available
+  var prevRow = row.previousElementSibling;
+  if (prevRow != null) {
+    prevRow.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  } else {
+    row.parentElement.previousElementSibling.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
 }
 
 function loadAllDecks(data, tabletop) {
