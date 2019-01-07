@@ -23,6 +23,15 @@ document.addEventListener("DOMContentLoaded", function() {
   sel('#btn-shuffle').addEventListener('click', shuffleAndMoveToTop);
   document.addEventListener('keypress', handleKey);
 
+  // Mobile
+  sel('#btn-mobile-toggle-left').addEventListener('click', toggleSelectedLeft);
+  sel('#btn-mobile-toggle-right').addEventListener('click', toggleSelectedRight);
+  sel('#btn-mobile-toggle-notes').addEventListener('click', toggleSelectedNotes);
+  sel('#btn-mobile-remove').addEventListener('click', removeAndSelectNext);
+  sel('#btn-mobile-undo-remove').addEventListener('click', undoLastRemove);
+  sel('#btn-mobile-move-prev').addEventListener('click', selectPreviousRow);
+  sel('#btn-mobile-move-next').addEventListener('click', selectNextRow);
+
   key = getKeyFromQueryString();
   if (key != null) {
     loadSpreadsheet(key);
@@ -460,7 +469,7 @@ function removeRow(event) {
 
   if (selectedRow == removedRow) {
     // if next row is not available it means final row is selected. Keep selection on final item
-    var nextRow = row.nextElementSibling;
+    var nextRow = selectedRow.nextElementSibling;
     if (nextRow != null) {
       selectNextRow();
     } else {
