@@ -214,6 +214,8 @@ button.btn-remove, button.btn-unremove {
   padding: 1%;
   line-height: 1.2;
   font-size: 14px;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 #user-guide #btn-hide-guide {
@@ -226,7 +228,7 @@ button.btn-remove, button.btn-unremove {
 #user-guide .instructions {
   font-size: 20px;
   margin-top: 1%;
-  margin-bottom: 1.5em;
+  margin-bottom: 1%;
 }
 
 #user-guide .instructions ul {
@@ -237,11 +239,13 @@ button.btn-remove, button.btn-unremove {
   padding-right: 1%;
 }
 
-#user-guide .instructions li {
-  margin-bottom: .5em;
-}
+
 
 #user-guide #app-instructions {
+  display: none;
+}
+
+#user-guide #mobile-instructions {
   display: none;
 }
 
@@ -315,31 +319,33 @@ a:visited {
 
   button.btn-remove, button.btn-unremove {
     width: 100%;
-    height: 3.5em;
+    height: 2.5em;
   }
 
   button#btn-load-deck {
     margin-bottom: 2em;
   }
 
-  #user-guide {
-    display: none;
+  #user-guide #btn-hide-guide,
+  #user-guide #app-instructions,
+  #user-guide #keys-container {
+    display: none !important;
+  }
+
+  #user-guide #mobile-instructions {
+    display: inline-block;
   }
 
   .card.left, .card.right {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .card.notes {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .table-row {
-    margin-bottom: 1.5em;
-  }
-
-  #card-table .table-row.selected {
-    border: none;
+    margin-bottom: .75em;
   }
 
   #toggle-theme-container {
@@ -348,5 +354,14 @@ a:visited {
 
   .filler {
     display: none;
+  }
+
+  #load-new-key-container #btn-load-new-key {
+    height: 2em;
+    font-size: 1em;
+  }
+
+  .card {
+    height: 75px;
   }
 }
