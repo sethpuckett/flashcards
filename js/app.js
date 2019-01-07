@@ -239,12 +239,9 @@ function getSelectedRow() {
 }
 
 function scrollToSelectedRow() {
-  // Don't auto scroll on small screens
-  if (window.innerWidth > 767) {
-    row = getSelectedRow();
-    if (row == null) return;
-    row.scrollIntoView({ behavior: 'smooth' });
-  }
+  row = getSelectedRow();
+  if (row == null) return;
+  row.scrollIntoView({ behavior: 'smooth' });
 }
 
 function loadAllDecks(data, tabletop) {
