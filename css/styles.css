@@ -394,4 +394,16 @@ a:visited {
   footer {
     display: none;
   }
+
+  #btn-show-left, #btn-show-right, #btn-shuffle {
+    width: 21%;
+    height: 7em;
+    margin-left: 1%;
+    margin-right: 1%;
+    font-size: 12px;
+  }
+
+  #btn-show-all, #btn-hide-all {
+    display: none;
+  }
 }
