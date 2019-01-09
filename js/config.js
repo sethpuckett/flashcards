@@ -1,6 +1,6 @@
 
 // Key for a Google spreadsheet containing flashcards. This spreadsheet will be loaded on application startup
-const DEFAULT_SPREADSHEET_KEY = '159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU'
+// const DEFAULT_SPREADSHEET_KEY = '159Xdlkq_k9gr5kUt_ICNHOlVmqWXxTwxR3LBemNMKAU'
 
 // Whether or not users can enter a custom spreadsheet key. If set to 'false' you must provide a DEFAULT_SPREADSHEET_KEY.
 // Values are: true, false
