@@ -271,6 +271,14 @@ button.btn-remove, button.btn-unremove {
   font-size: .7em;
 }
 
+#card-count-container {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 1;
+}
+
 a:link,
 a:hover,
 a:active {
@@ -354,6 +362,13 @@ a:visited {
 
   #toggle-theme-container {
     display: none;
+  }
+
+  #card-count-container {
+    bottom: 140px;
+    right: 20px;
+    z-index: 1;
+    font-size: 16px;
   }
 
   .filler {

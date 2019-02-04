@@ -159,6 +159,7 @@ function removeAndSelectNext() {
     removeRow.call(currentRow.querySelector('.btn-remove'));
   }
 
+  setCurrentCardCount();
   scrollToSelectedRow();
 }
 
@@ -166,6 +167,8 @@ function undoLastRemove() {
   row = sel('#card-table > .body.removed > .table-row:last-child');
   if (row == null) return;
   unremoveRow.call(row.querySelector('.btn-unremove'), null, getSelectedRow());
+
+  setCurrentCardCount();
   selectPreviousRow();
 }
 
@@ -392,6 +395,9 @@ function loadDeck(deckName) {
   showGuide();
   showCardButtons();
   showAppInstructions();
+  setCurrentCardCount();
+  setTotalCardCount();
+  showCardCount();
   showFlaschardContainer();
   selectFirstRow();
 
@@ -618,6 +624,23 @@ function showGuide() {
 
 function hideGuide() {
   sel('#user-guide').style.display = 'none';
+}
+
+function setCurrentCardCount() {
+  sel('#current-card-count').textContent =
+    selAll('#card-table > .body.active > .table-row').length;
+}
+
+function setTotalCardCount() {
+  sel('#total-card-count').textContent = deck.cards.elements.length;
+}
+
+function showCardCount() {
+  sel('#card-count-container').style.display = 'inline-block';
+}
+
+function hideCardCount() {
+  sel('#card-count-container').style.display = 'none';
 }
 
 function sel(query) {
