@@ -1,7 +1,7 @@
-# Seth's Flashcards
+# Flashcards
 ![App Screenshot](img/app-screenshot-01.png "App Screenshot")
 
-My name is Seth and these are my flashcards. This application is designed to be simple to use, fast, and responsive to keyboard commands.
+This is a simple flashcard app that is designed to be fast and responsive to keyboard commands.
 
 ## Table of Contents
 * **[Overview & Purpose](#overview--purpose)**
@@ -19,10 +19,10 @@ When I started doing language study I couldn't find a flashcard application or w
 * Minimal or no keyboard support
 
 This application is an attempt to solve these problems with the following features:
-* Decks and cards are managed via Google Spreadsheets. This makes it easy to add, remove, and edit cards en masse.
+* Decks and cards are managed via Google Spreadsheets. This makes it easy to add, remove, and edit cards.
 * No ads or other clutter. A minimal UI limits distraction and supports focused study.
-* Once a deck is loaded there are no more calls to the server. Switching, hiding, revealing, and shuffling cards is all handled client side, meaning the application is quick and responsive.
-* Once a deck is loaded all primary functionality is available via keyboard shortcuts (using one hand). After a small learning curve managing the flashcards via the keyboard is significantly faster than fiddling with a mouse.
+* Once a deck is loaded there are no more calls to the server. Switching, hiding, revealing, and shuffling cards is all handled in the browser, meaning the application is quick and responsive.
+* Once a deck is loaded all primary functionality is available via keyboard shortcuts. After a small learning curve managing the flashcards via the keyboard is significantly faster than fiddling with a mouse.
 
 ## User Guide
 
@@ -73,7 +73,7 @@ Want to make your own flashcards? Great! It's as simple as adding the values to 
 
 ### Setting up the spreadsheet
 
-Seth's Flashcards reads the card values from Google Spreadsheets using `Tabletop.js`. There is a little setup involved and the spreadsheets need to be formatted in a particular way for everything to work correctly. The steps below will help you get started.
+The app reads the card values from Google Spreadsheets using `Tabletop.js`. There is a little setup involved and the spreadsheets need to be formatted in a particular way for everything to work correctly. The steps below will help you get started.
 
 1. Go to [Google Drive](https://drive.google.com) and create a new **Google Sheet**.
 2. Add as many sheets as you want. Each individual sheet will correspond to a different deck of flashcards. The name of the sheet will be the name of the deck.
@@ -102,7 +102,7 @@ Feel free to clone or fork the application and modify it to your heart's content
 
 ### Running the application
 
-Seth's Flashcards is designed to be simple, so there is no build step. Just open `index.html` in your favorite browser and you're ready to go.
+The app is designed to be simple, so there is no build step. Just open `index.html` in your favorite browser and you're ready to go.
 
 ### Configuration Options
 
@@ -115,7 +115,7 @@ Configuration options can be found in `js/config.js`. To make changes just updat
 
 ## Help
 
-* Found a bug? Want a feature? Feel free to open an issue and/or create a PR. Keep in mind this application needs to stay fast and simple.
+* Found a bug? Feel free to open an issue. (No promises I'll get to it, though)
 * Trying to make your own flashcards and something isn't working? Here are some tips:
   * Double check your spelling and your casing. If you're adding deck notes the sheet must be named `notes` and must have 2 columns with headings `name` and `notes`. The values in the `name` column must much the names of your other sheets **exactly**. Casing is important.
   * Did you publish your spreadsheet to the web **and** share it? You need to do both. Check the [Tabletop.js documentation](https://github.com/jsoma/tabletop#getting-started) if you're not sure.
