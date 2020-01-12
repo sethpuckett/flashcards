@@ -119,11 +119,16 @@ footer {
   font-size: 13px;
 }
 
+.card.notes-big {
+  text-align: left;
+  font-size: 24px;
+}
+
 .card.notes p {
   margin: 1%;
 }
 
-.card.notes.note-content {
+.card.note-content {
   background-image: url('../img/info.png');
   background-repeat: no-repeat;
   background-size: 32px;

@@ -372,9 +372,15 @@ function loadDeck(deckName) {
       rightSizeClass = 'card-small';
     }
 
-    notesDiv = notesEntry != null && notesEntry != '' ?
-      `<div class='card-column card notes note-content'><p>${notesEntry}</p></div>` :
-      `<div class='card-column card notes'><p></p></div>`;
+
+    notesDiv = `<div class='card-column card notes'><p></p></div>`;
+    if (notesEntry != null && notesEntry != '') {
+      if (notesEntry.length > 10) {
+        notesDiv = `<div class='card-column card notes note-content'><p>${notesEntry}</p></div>`;
+      } else {
+        notesDiv = `<div class='card-column card notes-big note-content'><p>${notesEntry}</p></div>`;
+      }
+    }
 
     var row = `
       <div class='table-row'>
