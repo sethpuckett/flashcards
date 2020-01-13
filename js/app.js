@@ -378,7 +378,7 @@ function loadDeck(deckName) {
       if (notesEntry.length > 10) {
         notesDiv = `<div class='card-column card notes note-content'><p>${notesEntry}</p></div>`;
       } else {
-        notesDiv = `<div class='card-column card notes-big note-content'><p>${notesEntry}</p></div>`;
+        notesDiv = `<div class='card-column card notes notes-big note-content'><p>${notesEntry}</p></div>`;
       }
     }
 
